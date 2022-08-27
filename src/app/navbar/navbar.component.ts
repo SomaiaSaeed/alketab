@@ -181,6 +181,23 @@ export class NavbarComponent implements OnInit {
         debugger
         // sagd.surah=sagd.surah.name;
         // sagd.sajda=sagd.sajda.id;
+        if(sagd.number===1951){
+          this.sagdas.push({
+            رقم_الصفحة: sagd.page,
+            الجزء: sagd.juz,
+            اسم_السورة: sagd.surah.name,
+            الآية:"وَلِلَّهِ يَسْجُدُ مَا فِى ٱلسَّمَٰوَٰتِ وَمَا فِى ٱلْأَرْضِ مِن دَآبَّةٍ وَٱلْمَلَٰٓئِكَةُ وَهُمْ لَا يَسْتَكْبِرُون"+' (' + 49 + ')' +sagd.text + ' (' + sagd.numberInSurah + ')',
+          });
+        }else if(sagd.number===2138){
+          this.sagdas.push({
+            رقم_الصفحة: sagd.page,
+            الجزء: sagd.juz,
+            اسم_السورة: sagd.surah.name,
+            الآية:"  قُلْ ءَامِنُوا۟ بِهِۦٓ أَوْ لَا تُؤْمِنُوٓا۟ إِنَّ ٱلَّذِينَ أُوتُوا۟ ٱلْعِلْمَ مِن قَبْلِهِۦٓ إِذَا يُتْلَىٰ عَلَيْهِمْ يَخِرُّونَ لِلْأَذْقَانِ سُجَّدًا (107) وَيَقُولُونَ سُبْحَٰنَ رَبِّنَآ إِن كَانَ وَعْدُ رَبِّنَا لَمَفْعُولًا (108)" +sagd.text + ' (' + sagd.numberInSurah + ')',
+          });
+        }
+        // وَيَقُولُونَ سُبْحَٰنَ رَبِّنَآ إِن كَانَ وَعْدُ رَبِّنَا لَمَفْعُولًا
+        else
         this.sagdas.push({
           رقم_الصفحة: sagd.page,
           الجزء: sagd.juz,
@@ -988,7 +1005,7 @@ export class NavbarComponent implements OnInit {
     a.document.write('</head>');
 
     a.document.write('<body >');
-    for (let i = 1; i < pages.length; i++)// ignore frist element from print 
+    for (let i = 1; i < pages.length; i++)// ignore frist element from print
       a.document.write(`${pages.item(i).innerHTML}`);
 
     a.document.write('<style>');
@@ -999,9 +1016,9 @@ export class NavbarComponent implements OnInit {
 .container{
   visibility: visible;
   page-break-after: always;
- 
+
 }
-@page { 
+@page {
 size: 297mm 210mm; /* landscape */
 margin: 25mm;
 margin-right: 45mm; /* for compatibility with both A4 and Letter */
@@ -1104,7 +1121,7 @@ a:-webkit-any-link {
 
 
 a .aya_link{
- 
+
   left: 45px;
   height: 200px;
   width: 480px;
