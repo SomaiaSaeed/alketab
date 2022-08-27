@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: 'footer', loadChildren: () => import('./footer/footer/footer.module').then(m => m.FooterModule)},
   {path: 'readers', loadChildren: () => import('./readers/readers/readers.module').then(m => m.ReadersModule)},
   {path: 'qoraa', loadChildren: () => import('./qoraa/qoraa/qoraa.module').then(m => m.QoraaModule)},
-  {path: 'quran', loadChildren: () => import('./navbar/navbar/navbar.module').then(m => m.NavbarModule)},
+  {path: '', loadChildren: () => import('./navbar/navbar/navbar.module').then(m => m.NavbarModule)},
   {
     path: 'search',
     loadChildren: () => import('./search-settings/search.module').then(m => m.SearchSettingsModule)

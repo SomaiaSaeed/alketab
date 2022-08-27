@@ -43,9 +43,8 @@
 <!--      <li><a (click)="callTafser($event)">التفسير</a></li>-->
       <li><a (click)="callSearch($event)">البحث</a></li>
       <li><a (click)="callHome($event)">عن الموقع</a></li>
-      <li class='active'><a (click)="callMotashabh()">القران الكريم</a></li>
 
-<li>    <img id="logo" src="assets/Quran_logo.png">
+<li >  <a (click)="callMotashabh()"><img id="logo" src="assets/Quran_logo.png"></a>  
 </li>
       </ul>
 
@@ -53,19 +52,6 @@
   </nav>
 </div>
 
-<!-- main-banner -->
-<div class="text-center">
-  <div class="container">
-    <div class="texts">
-      <h1>يتلونه حق تلاوته</h1>
-      <h2>تيسيير حفظ القرآن </h2>
-      <p>الآن يمكنك تحفظ القرآن الكريم من خلال الاستماع إلى القرّاء المجيدين والتكرار علي مدار الساعة</p>
-    </div>
-
-
-  </div>
-
-</div>
 <app-grid *ngIf="showListOfAyah"
           [displaySearchResult]="true"
           [data]="ayas"

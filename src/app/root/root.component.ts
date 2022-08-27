@@ -446,7 +446,7 @@ car:any[] =  [
   }
 
   callMotashabh() {
-    this._router.navigateByUrl("/quran");
+    this._router.navigateByUrl("");
   }
 
   callHome($event: MouseEvent) {

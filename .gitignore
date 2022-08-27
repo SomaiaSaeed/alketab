@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 /.angular/cache
 src/assets/QuranImages_50/*.png
+package-lock.json
