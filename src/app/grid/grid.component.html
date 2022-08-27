@@ -1,0 +1,56 @@
+<div style="height:700px">
+  <div class="row">
+
+    <div class="col">
+      <span (click)="CloseGrid.emit()" aria-label="Close" class="close"
+        style="float: right;padding-right: 20px;cursor: pointer">
+        &times;
+        <i class="fa fa-window-close" style="font-size:20px;color:red"></i></span>
+
+      <button style="float: right;margin-right: 20px" (click)="exportAsXLSX()">
+        <i class="fa fa-file-excel-o" style="font-size:25px;color:green"></i></button>
+      <button style="float: right;margin-right: 20px" (click)="exportAsPDF()">
+        <i class="fa fa-file-pdf-o" style="font-size:25px;color:red"></i></button>
+      <!--   <button style="float: right;margin-right: 20px" (click)="exportAsWord()">-->
+      <!--      <i class="fa fa-file-word-o" style="font-size:25px;color:blue"></i></button>-->
+      <span *ngIf="numOfMoade3" style="float: right;margin-right: 20px">
+        نتيجة البحث: {{numOfMoade3}} موضع
+        في {{data.length}} اية </span>
+
+      <span *ngIf="search" style="float: right;margin-right: 20px">
+        كلمة البحث: {{search}}
+      </span>
+    </div>
+
+
+  </div>
+  <div class="w-100" style="float: right;padding-right: 20px;padding-left: 20px">
+    <p-table [columns]="colInfo" [resizableColumns]="true" [rowsPerPageOptions]="[10,20,30]" [rows]="rowsInPage"
+      [value]="data" columnResizeMode="expand" paginator="true">
+      <ng-template let-columns pTemplate="header">
+        <tr>
+          <th *ngFor="let col of colInfo" [pSortableColumn]="col.Field">
+            <span class="arabicText">
+              {{col.Caption}}
+
+            </span>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template let-row pTemplate="body">
+        <tr>
+          <td *ngFor="let col of colInfo">
+            <span *ngIf="displaySearchResult&& col.Field == 'الآية'" class="arabicText">
+              <span *ngFor="let txt of row['highlightedAya']" [style.color]="txt.highlight? 'red':'black'">
+                {{txt.text}}
+              </span>
+            </span>
+            <span *ngIf="!displaySearchResult || col.Field != 'الآية'" class="arabicText"> {{row[col.Field]}}</span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+
+</div>

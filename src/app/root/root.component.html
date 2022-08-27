@@ -1,0 +1,76 @@
+<head>
+  <title>
+    الصفحة الرئيسية ::
+    مقرأة الحرمين
+
+  </title>
+
+  <link href="https://maqraa.com/themes/frontend/midade/assets/custom2/images/favicon.png" rel="shortcut icon">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="https://maqraa.com/cache/assets/frontend.midade.styles.d76fe3d0f0ba8d63be5af09ec4b9c337_1648832313.css"
+        rel="stylesheet">
+
+
+</head>
+
+
+<div id="hdr-box">
+
+  <nav class="navbar bg-dark-green no-border no-margin no-padding" class="mainnav">
+
+    <ul
+    >
+
+      <li>
+        <input (click)="sameWord($event)" class="filled-in" id="filled-in-box3" name="remember"
+               type="checkbox" value="1">
+        <label  style="margin-right: 20px;color: white"  class="check" for="filled-in-box3">متطابق</label>
+        <button class="btn btn-outline-light my-2 my-sm-0"
+                (click)="doSearch()" type="submit">بحث</button>
+        <p-autoComplete #autoComplete styleClass="prime-autoComplete-override" dir="rtl"
+                        [(ngModel)]="searchWord" [suggestions]="results"
+                        (completeMethod)="search($event)"
+                        (onSelect)="selectSearchWords($event)"
+                        (onFocus)="getLocal()"
+                        (keyup.enter)="doSearch()"
+
+        ></p-autoComplete>
+</li>
+
+<!--      <li><a (click)="callReader($event)">قائمة المقارئ</a></li>-->
+       <li >  <a (click)="callFehres($event)">ضبط الاستماع</a></li>
+<!--      <li><a (click)="callTafser($event)">التفسير</a></li>-->
+      <li><a (click)="callSearch($event)">البحث</a></li>
+      <li><a (click)="callHome($event)">عن الموقع</a></li>
+      <li class='active'><a (click)="callMotashabh()">القران الكريم</a></li>
+
+<li>    <img id="logo" src="assets/Quran_logo.png">
+</li>
+      </ul>
+
+
+  </nav>
+</div>
+
+<!-- main-banner -->
+<div class="text-center">
+  <div class="container">
+    <div class="texts">
+      <h1>يتلونه حق تلاوته</h1>
+      <h2>تيسيير حفظ القرآن </h2>
+      <p>الآن يمكنك تحفظ القرآن الكريم من خلال الاستماع إلى القرّاء المجيدين والتكرار علي مدار الساعة</p>
+    </div>
+
+
+  </div>
+
+</div>
+<app-grid *ngIf="showListOfAyah"
+          [displaySearchResult]="true"
+          [data]="ayas"
+          [rowsInPage]="10"
+          [searchWord]="searchWord"
+          [numOfMoade3]="numOfMoade3"
+          (CloseGrid)="showListOfAyah=false"
+></app-grid>

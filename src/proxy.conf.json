@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "http://cdn.alquran.cloud",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

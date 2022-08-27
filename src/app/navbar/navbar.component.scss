@@ -1,0 +1,217 @@
+.logo {
+  width: 60px;
+  height: 60px;
+  padding-right: 10px;
+}
+
+#slideshow {
+  margin: 80px auto;
+  position: relative;
+  width: 240px;
+  height: 240px;
+  padding: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+#slideshow>div {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+
+.sidenav {
+  height: 100%;
+  width: 300px;
+  //position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: chocolate;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: black;
+}
+
+.main {
+  margin-left: 200px;
+  /* Same as the width of the sidenav */
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.result .row-0 {
+  background: #F5FFEB;
+}
+
+.number {
+  font-family: "Traditional Arabic", "Times New Roman";
+  font-size: 18px;
+  white-space: nowrap;
+  color: green;
+}
+
+.match {
+  color: blue;
+  font-weight: bold;
+  font-size: 95%;
+}
+
+.searchFrame {
+  font-size: 16px;
+  border: 4px solid #D4DDCC;
+  background: #eaf3e2;
+  direction: rtl;
+}
+
+.searchResults .highlight {
+  color: blue;
+  font-weight: bold;
+  font-size: 95%;
+}
+
+label.menu-toggle {
+  position: absolute;
+  right: -60px;
+  width: 60px;
+  height: 60px;
+  line-height: 0px;
+  display: block;
+  padding: 0;
+  text-indent: -9999px;
+  background: #f8f9fa08 url(https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png) 50% 50% / 25px 25px no-repeat
+}
+
+ul li>label {
+  background: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-b-128.png) 95% 50% / 16px 16px no-repeat;
+}
+
+a,
+label {
+  display: block;
+  text-align: center;
+  padding: 0 20px;
+  line-height: 60px;
+  text-decoration: none;
+  color: #000;
+}
+
+#wrapper {
+  //position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  float: right
+}
+
+.menu {
+  float: right;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: chocolate;
+  width: 240px;
+  height: 100%;
+  transform: translate3d(-240px, 0, 0);
+  transition: transform 0.35s;
+}
+
+h1 {
+  color: #fff;
+  border: 3px solid #fff;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 22px;
+  font-weight: normal;
+  padding: 20px;
+  margin: 10px;
+  display: inline-block;
+  display: block;
+  font-size: 26px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+#info {
+  display: table;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+}
+
+#info-content {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 12px;
+}
+
+.menu-checkbox {
+  display: none
+}
+
+/* hide navigation icon for sublabels */
+.menu .menu label.menu-toggle {
+  background: none
+}
+
+/* fade in checked menu */
+.menu-checkbox:checked+.menu {
+  transform: translate3d(0, 0, 0)
+}
+
+
+
+//:host {
+//  ::ng-deep .ui-autocomplete-panel {
+//
+//   .ul{ .li  {
+//    .span{
+//      float: right !important;
+//
+//    }
+//    }}
+//  }
+//}
+:host {
+  ::ng-deep .p-sidebar-active {
+    height: 3000px;
+    float: right;
+    text-align: justify;
+    direction: rtl
+  }
+
+  ::ng-deep .p-dialog-footer {
+    text-align-last: end;
+
+  }
+}

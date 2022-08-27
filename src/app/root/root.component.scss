@@ -1,0 +1,159 @@
+#sub-nav ul li {
+  float: none;
+  display: block;
+}
+
+#hdr-box {
+  width: 100%;
+  display: inline-block;
+  background-color: chocolate;
+}
+
+#logo {
+  width: 50px;
+  height: 40px;
+  float: left;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+}
+
+.mainnav {
+  /*font-family: "Myriad Pro", 'PT Sans Caption', sans-serif;*/
+  font-size: 20px;
+}
+
+#hdr-box nav {
+  line-height: 30px;
+  text-align: center;
+  //width: 563px;
+  float: right;
+  margin-right: 50px;
+
+}
+
+#hdr-box nav ul {
+  list-style: none;
+  margin: 0 auto;
+  width: auto;
+}
+
+#hdr-box nav li {
+  float: left;
+  display: inline;
+  margin-right: 40px;
+}
+
+#hdr-box nav a, #topbar nav a:visited {
+  color: #dddddd;
+  display: inline-block;
+  font-family: "Lato", sans-serif;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.84);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 2px;
+}
+
+#hdr-box nav a:hover {
+  color: white;
+  background: #f49636;
+
+}
+
+nav li > .mega-menu {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #fff;
+  width: 770px;
+  height: 204px;
+  padding: 40px;
+  background: #02a2e0;
+  visibility: hidden;
+  /*display: none;*/
+  overflow: hidden;
+  position: absolute;
+  right: 200px;
+  z-index: 99999;
+  text-align: left;
+  list-style: disc;
+}
+
+nav li:hover > .mega-menu {
+  visibility: visible;
+  display: block;
+}
+
+.mega-menu img {
+  float: left;
+  margin-right: 30px;
+  width: 272px;
+  height: 207px;
+}
+
+.mega-menu h3 {
+  color: #fff;
+  font-size: 18px;
+}
+
+#mainnav ul.mega-menu ul {
+  display: none;
+  position: absolute;
+  left: 0;
+}
+
+#mainav ul.mega-menu li {
+  display: block !important;
+}
+
+/*nav li > .mega-menu ul ui  {
+	display: block!important;
+	color: #fff;
+
+}
+
+.mainnav ul ul li {
+	float: none!important;
+}*/
+
+.mega-menu p {
+  line-height: 23px;
+}
+
+.nav-column {
+  width: 135px
+}
+
+#sub-nav ul li {
+  float: none;
+  display: block;
+}
+
+.main-banner {
+  margin-bottom: 50px;
+}
+
+
+:host {
+  ::ng-deep .p-autocomplete-input{
+    width: 400px;
+  }
+  //.ui-state-highlight{
+  //
+  //
+  //  }
+
+  ::ng-deep .p-autocomplete-item {
+    direction: rtl;
+    width: 400px;
+    //text-align: initial;
+
+      //span{
+      //  float: right;
+        text-align: justify;
+        //direction: rtl
+
+      //}
+  }
+}
+

@@ -1,0 +1,383 @@
+<!--<head>  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script></head>-->
+<!--<html lang="ar" dir="rtl">-->
+<!--&lt;!&ndash;<![endif]&ndash;&gt;-->
+
+
+<!--<body class="rtl">-->
+
+<!--<section id="wrapper">-->
+
+<!--  &lt;!&ndash; Page Content&ndash;&gt;-->
+
+<!--  <div id="content">-->
+<!--    <section class="library">-->
+<!--      <div class="container">-->
+<!--        <div class="section-title">-->
+<!--          <h3>البحث</h3>-->
+<!--          <p>اليك ايها الزائر بعض ادوات البحث لتساعدك علي بحثك للقرآن الكريم</p>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--          <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">-->
+
+<!--            <form method="post" action="" accept-charset="utf-8" data-search data-grid="main" role="search">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-5 col-sm-5 col-xs-12">-->
+<!--                  <div class="form-group">-->
+<!--                    <input name="filter" class="form-control" type="text" placeholder="بحث">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="input-field">-->
+<!--                  <input type="checkbox" name="remember" (click)="omomClicked($event)" class="filled-in" id="filled-in-box1" value="1">-->
+<!--                  <label for="filled-in-box1" class="check">عموم القران</label>-->
+<!--                </div>-->
+<!--                <div class="input-field">-->
+<!--                  <input type="checkbox" name="remember"  (click)="wasatClicked($event)" class="filled-in" id="filled-in-box2" value="1">-->
+<!--                  <label for="filled-in-box2" class="check">وسط الايات</label>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--                <div class="row">-->
+
+<!--                  <div class="col-6">-->
+<!--                    <div class="row-cols-6">-->
+<!--                      <label for="filled-in-box2" style="float: right;margin-top: 5px">من سوره :</label>-->
+
+<!--                      <p-dropdown (onChange)="fromSoraFun($event)"-->
+<!--                                  [(ngModel)]="fromSora"-->
+<!--                                  [options]="soras"-->
+<!--                                  [style]="{float:'right'}"-->
+<!--                                  class="sora"-->
+<!--                                  optionLabel="اسم_السورة"></p-dropdown>-->
+<!--                    </div>-->
+
+<!--                    <div class="row-cols-6">-->
+<!--                      <label class="check" for="filled-in-box2" style="float: right;margin-right: 10px;margin-top: 5px">من-->
+<!--                        ايه :</label>-->
+
+<!--                      <p-dropdown (onChange)="fromAyaFun($event)" [options]="fromSoraAyat"-->
+<!--                                  [style]="{float:'right','margin-right': '5px'}" class="aya"-->
+<!--                                  optionLabel="id"></p-dropdown>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+
+<!--                  <div class="col-6">-->
+<!--                    <div class="row-cols-6">-->
+<!--                      <label class="check" for="filled-in-box2" style="float: right;margin-top: 5px">الي سوره :</label>-->
+<!--                      <p-dropdown (onChange)="toSoraFun($event)"-->
+<!--                                  [options]="soras"-->
+<!--                                  [style]="{float:'right'}" class="sora"-->
+<!--                                  optionLabel="اسم_السورة">-->
+<!--                      </p-dropdown>-->
+<!--                    </div>-->
+
+<!--                    <div class="row-cols-6">-->
+<!--                      <label class="check" for="filled-in-box2" style="float: right;margin-right: 10px;margin-top: 5px">الي-->
+<!--                        ايه :</label>-->
+<!--                      <p-dropdown (onChange)="toAyaFun($event)"-->
+<!--                                  [options]="toSoraAyat"-->
+<!--                                  [style]="{float:'right','margin-right': '5px'}" class="aya"-->
+<!--                                  optionLabel="id">-->
+<!--                      </p-dropdown>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+<!--                </div>-->
+
+<!--              <div class="row">-->
+
+
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 15px">من جزء :</label>-->
+
+<!--                  <p-dropdown (onChange)="fromPartFun($event)" [options]="parts"-->
+<!--                              [style]="{float:'right',margin:'10px',width:'200px'}" optionLabel="الجزء"></p-dropdown>-->
+<!--              </div>-->
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 15px">الي جزء :</label>-->
+
+<!--                  <p-dropdown (onChange)="toPartFun($event)"-->
+<!--                              [options]="parts"-->
+<!--                              [style]="{float:'right',margin:'10px',width:'200px'}" optionLabel="الجزء"></p-dropdown>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">من حزب :</label>-->
+<!--                  <p-dropdown (onChange)="fromHezpFun($event)"-->
+<!--                              [options]="hezb"-->
+<!--                              [style]="{float:'right',margin:'0 5px 10px 10px',width:'200px'}" optionLabel="nOFHezb"></p-dropdown>-->
+<!--                </div>-->
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">الي حزب :</label>-->
+<!--                  <p-dropdown (onChange)="toHezpFun($event)"-->
+<!--                              [options]="hezb"-->
+<!--                              [style]="{float:'right',margin:'0 5px 10px 10px',width:'200px'}" optionLabel="nOFHezb"></p-dropdown>-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="row">-->
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">من ربع :</label>-->
+<!--                  <p-dropdown (onChange)="fromRobFun($event)"-->
+<!--                              [options]="rob"-->
+<!--                              [style]="{float:'right',margin:'0 10px 10px 10px',width:'200px'}" optionLabel="rub"></p-dropdown>-->
+<!--                  </div>-->
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">الي ربع :</label>-->
+<!--                  <p-dropdown (onChange)="toRobFun($event)"-->
+<!--                              [options]="rob"-->
+<!--                              [style]="{float:'right',margin:'0 10px 10px 10px',width:'200px'}" optionLabel="rub"></p-dropdown>-->
+<!--                </div>-->
+<!--                </div>-->
+
+<!--              <div class="row">-->
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">من صفحه :</label>-->
+<!--                  <p-dropdown (onChange)="fromPageFun($event)"-->
+<!--                              [options]="pages"-->
+<!--                              [style]="{float:'right',margin:'0 0 10px 10px',width:'200px'}" optionLabel="nOFPage"></p-dropdown>-->
+<!--                  </div>-->
+<!--                <div class="col-6">-->
+<!--                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">الي صفحه :</label>-->
+
+<!--                  <p-dropdown (onChange)="toPageFun($event)"-->
+<!--                              [options]="pages"-->
+<!--                              [style]="{float:'right',margin:'0 0 10px 10px',width:'200px'}" optionLabel="nOFPage"></p-dropdown>-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--            </form>-->
+<!--&lt;!&ndash;            <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="col-12" style="float: right; height: 50px">&ndash;&gt;-->
+<!--                <p-autoComplete class="select" [style]="{float:'right'}" [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search1($event)" [dropdown]="true"style=""  [multiple]="true"></p-autoComplete>-->
+
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            <div class="row" style="margin-top: 100px"><span></span></div>-->
+<!--            <div class="col-md-12 col-sm-12 text-center">-->
+
+<!--              <button type="submit" (click)="saveSearch()" class="btn btn-default btn-block waves-effect waves-light" data-toggle="dropdown">-->
+<!--                حفظ الاعدادات-->
+<!--              </button>-->
+<!--            </div>-->
+<!--&lt;!&ndash;            <div class="row"> </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div *ngIf="soraSelected&&!partSelected" class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;              <p>من سوره</p>&ndash;&gt;-->
+<!--&lt;!&ndash;              <p-dropdown  [options]="soras" (onClick)="ayatClicked($event)" optionLabel="اسم_السورة"></p-dropdown>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <p>الي </p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <p-dropdown  [options]="soras" (onClick)="ayatClicked($event)" optionLabel="اسم_السورة"></p-dropdown>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div *ngIf="partSelected&&!soraSelected" class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;              <p>من جزء</p>&ndash;&gt;-->
+<!--&lt;!&ndash;              <p-dropdown  [options]="parts" (onClick)="ayatClicked($event)" optionLabel="الجزء"></p-dropdown>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <p>الي </p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              <p-dropdown  [options]="parts" (onClick)="ayatClicked($event)" optionLabel="الجزء"></p-dropdown>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="col-lg-12">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="data-grid_applied" data-grid="main"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <div class="search-results">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="col-md-12 col-sm-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="section-title">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3>حفظ الاعدادات</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <ul class="list-unstyled no-margin no-padding available-list data-grid" data-source="https://maqraa.com/ar/library/grid/" data-grid="main" ></ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <script type="text/template" data-grid="main" data-template="results">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <% _.each(results, function(r) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <li class="col-md-6 col-sm-6 col-xs-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="card hoverable">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <img src="https://maqraa.com/themes/frontend/midade/assets/custom2/images/book.png" class="img-responsive" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h4><%= r.title %></h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <p><%= r.description %></p>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span><time class="warning fa-right"><i class="fa fa-right fa-clock-o"></i><%= moment(r.created_at).format('MMM DD, YYYY') %></time></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <% if (r.link_type === 'internal') { %>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="https://maqraa.com/ar/media/download/<%= r.file_url %>/" class="btn btn-xs btn-success"><i class="fa fa-eye fa-right"></i>عرض المادة</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <% } else { %>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href=" <%= r.file_url %> " class="btn btn-xs btn-success"><i class="fa fa-eye fa-right"></i>عرض المادة</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <% } %>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <% }); %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                  </script>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <script type="text/template" data-grid="main" data-template="pagination">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <% _.each(pagination, function(p) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <div class="pull-left">&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;                      &nbsp;&nbsp;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      إستعراض <%= p.page_start %> إلى <%= p.page_limit %> من&ndash;&gt;-->
+<!--&lt;!&ndash;                      <span class="total"><%= p.filtered %></span>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <div class="pull-right">&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;                      <ul class="pagination pagination-sm no-padding no-margin" dir="ltr">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% if (p.previous_page !== null) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li><a href="#" data-grid="main" data-page="1"><i class="fa fa-angle-double-left"></i></a></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li><a href="#" data-grid="main" data-page="<%= p.previous_page %>"><i class="fa fa-chevron-left"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% } else { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li class="disabled"><span><i class="fa fa-angle-double-left"></i></span></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li class="disabled"><span><i class="fa fa-chevron-left"></i></span></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% } %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <%&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        var num_pages = 11,&ndash;&gt;-->
+<!--&lt;!&ndash;                        split    = num_pages - 1,&ndash;&gt;-->
+<!--&lt;!&ndash;                        middle   = Math.floor(split / 2);&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        var i = p.page - middle > 0 ? p.page - middle : 1,&ndash;&gt;-->
+<!--&lt;!&ndash;                        j = p.pages;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        j = p.page + middle > p.pages ? j : p.page + middle;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        i = j - i < split ? j - split : i;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        if (i < 1)&ndash;&gt;-->
+<!--&lt;!&ndash;                        {&ndash;&gt;-->
+<!--&lt;!&ndash;                        i = 1;&ndash;&gt;-->
+<!--&lt;!&ndash;                        j = p.pages > split ? split + 1 : p.pages;&ndash;&gt;-->
+<!--&lt;!&ndash;                        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% for(i; i <= j; i++) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% if (p.page === i) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li class="active"><span><%= i %></span></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% } else { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li><a href="#" data-grid="main" data-page="<%= i %>"><%= i %></a></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% } %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% } %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% if (p.next_page !== null) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li><a href="#" data-grid="main" data-page="<%= p.next_page %>"><i class="fa fa-chevron-right"></i></a></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li><a href="#" data-grid="main" data-page="<%= p.pages %>"><i class="fa fa-angle-double-right"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% } else { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li class="disabled"><span><i class="fa fa-chevron-right"></i></span></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <li class="disabled"><span><i class="fa fa-angle-double-right"></i></span></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <% } %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <% }); %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                  </script>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <script type="text/template" data-grid="main" data-template="filters">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <% _.each(filters, function(f) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <button type="button" class="btn btn-warning btn-sm">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% if (f.from !== undefined && f.to !== undefined) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% if (/[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(f.from) && /[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(f.to)) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') %>&ndash;&gt;-->
+<!--&lt;!&ndash;                      - <%= moment(f.to).format('MMM DD, YYYY') %></em>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% } else { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <%= f.label %> <em><%= f.from %> - <%= f.to %></em>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% } %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% } else if (f.col_mask !== undefined && f.val_mask !== undefined) { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <%= f.col_mask %> <em><%= f.val_mask %></em>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% } else { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% if (f.column === 'all') { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <%= f.value %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% } else { %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <%= f.value %> in <em><%= f.column %></em>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% } %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <% } %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                      <span class="fa fa-times-circle"></span>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <% }); %>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                  </script>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <script type="text/template" data-grid="main" data-template="no_results">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-12 col-sm-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="card no-results">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <h3>لا توجد نتائج</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </script>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <div class="col-xs-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="data-grid_pagination" dir="ltr" data-grid="main"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </section>    </div>-->
+
+
+<!--  &lt;!&ndash; footer &ndash;&gt;-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Footer-scripts &ndash;&gt;-->
+
+
+
+<!--</body>-->
+<!--</html>-->

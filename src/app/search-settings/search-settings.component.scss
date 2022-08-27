@@ -1,0 +1,26 @@
+
+
+:host {
+  ::ng-deep .sora {
+    .ui-dropdown {
+      min-width: 100px !important;
+    }
+
+  }
+
+  ::ng-deep .aya {
+    .ui-dropdown {
+      min-width: 50px !important;
+    }}
+
+    ::ng-deep  .ui-autocomplete-multiple-container {
+      height: 35px !important;
+      direction: rtl;
+    }
+  //::ng-deep .ui-dropdown-item {
+  //  direction: rtl!important;
+  //  float: right;
+  //  }
+
+
+}

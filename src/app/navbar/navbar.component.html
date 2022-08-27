@@ -1,0 +1,146 @@
+<div>
+  <input class="menu-checkbox" id="menu" name="menu" type="checkbox">
+  <div class="menu">
+
+    <label class="menu-toggle" for="menu"><span>Toggle</span></label>
+    <ul>
+      <li>
+        <label for="menu-3">عدد المتشابهات</label>
+        <input class="menu-checkbox" id="menu-3" name="menu-3" type="checkbox">
+        <div class="menu">
+          <label class="menu-toggle" for="menu-3"><span>Toggle</span></label>
+          <ul>
+            <li (click)="onMotshabhChange(motshabh)" *ngFor="let motshabh of nOfMotashabeh2">
+              <a>{{motshabh.code}}</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <label for="menu-4">تفسير</label>
+        <input class="menu-checkbox" id="menu-4" name="menu-4" type="checkbox">
+        <div class="menu">
+          <label class="menu-toggle" for="menu-4"><span>Toggle</span></label>
+          <ul>
+            <li (click)="OnChangetafseer(row)" *ngFor="let row of tafser">
+              <a onclick="return false;"> {{row.name}}</a>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+      <li>
+        <label for="menu-5">القراء</label>
+        <input class="menu-checkbox" id="menu-5" name="menu-5" type="checkbox">
+        <div class="menu">
+          <label class="menu-toggle" for="menu-5"><span>Toggle</span></label>
+          <ul>
+            <li (click)="OnChangeReader(row)" *ngFor="let row of readers">
+              <a onclick="return false;">{{row.name}}</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a (click)="changeMotshabeh()">متشابهات السور</a>
+      </li>
+      <li>
+        <div *ngIf="externalMotsh">
+          <p-dropdown [options]="soar" optionLabel="name"></p-dropdown>
+        </div>
+      </li>
+      <li>
+        <a (click)="OnSgdClicked()">السجدات</a>
+      </li>
+      <li>
+        <a (click)="printPage()">طباعة</a>
+      </li>
+      <li>
+        <a (click)="loadBookmarks()">المفضلة</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div style="position: absolute;
+bottom: 300px">
+  <p-sidebar (onHide)="hideTafseerDialoge()" [(visible)]="tafseer" position="buttom">
+    {{tafseerText}}</p-sidebar>
+</div>
+<!--
+<p-dialog [(visible)]="tafseer" header="تفسير">
+  {{tafseerText}}
+</p-dialog> -->
+
+<!--<p-sidebar [(visible)]="tafseer" position="buttom">-->
+<!--  {{tafseerText}}-->
+<!--</p-sidebar>-->
+<app-grid *ngIf="sagdatFlag" [data]="sagdas"></app-grid>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+  <div class="row" style="float: right">
+    <div *ngIf="isAudio&&!isRepeat&&!sagdatFlag" class="col">
+      <!--      -->
+      <audio autoplay controls loop src="{{audio}}"></audio>
+    </div>
+    <div *ngIf="isAudio&&isRepeat&&!sagdatFlag" class="col">
+      <audio audioplayer controls preload=auto src="{{audio}}"></audio>
+    </div>
+    <div *ngIf="isAudio&&!sagdatFlag" class="col">
+      <p-dropdown (onChange)="onClickrepeat($event)" [options]="repeat" optionLabel="name"></p-dropdown>
+    </div>
+  </div>
+
+  <div *ngIf="!sagdatFlag" class="row" style="margin-top: 20px">
+    <div class="col-5"></div>
+    <div class="col-7">
+      <button (click)="OnLeftClick()" class="ui-dropdown-trigger-icon" style="align-items: center ;margin-right: 50px">
+        Previous
+      </button>
+      <button (click)="OnRightClick()" class="ui-dropdown-trigger-icon"
+        style="align-items: center ; padding-left: 20px;padding-right: 20px">Next
+      </button>
+    </div>
+  </div>
+</div>
+<div style="overflow: hidden;height: 875px !important">
+  <div *ngFor="let img of imges">
+    <app-holy-quran (motahabehClick)="onMotahabehClick($event)" (onClick)="onAyaClicked($event)"
+      (onRight)="onRightAyaClicked($event)" *ngIf="!showListOfAyah &&!sagdatFlag " [pageNumber]="img"
+      [selectedMotashabeh2]="selectedMotashabeh2"></app-holy-quran>
+
+  </div>
+</div>
+<app-grid (CloseGrid)="sagdatFlag=false" *ngIf="sagdatFlag" [data]="sagdas" [rowsInPage]="5">
+
+</app-grid>
+<app-grid (CloseGrid)="displayBookmarks=false" *ngIf="displayBookmarks" [data]="bookmaks" [rowsInPage]="5">
+
+</app-grid>
+
+<p-dialog header="طباعة" [(visible)]="print" [modal]="true" showEffect="fade" [style]="{width: '40%',direction: 'rtl'}">
+  <div class="d-flex flex-row">
+
+    <div class="p-3">
+      من
+      <p-inputNumber class="mt-2" [(ngModel)]="printFrom" [min]="1" [max]="604" title="من"></p-inputNumber>
+    </div>
+
+
+    <div class="p-3">
+      إلى
+      <p-inputNumber class="mt-2" [(ngModel)]="printTo" [min]="1" [max]="604" title="إلى"></p-inputNumber>
+    </div>
+
+  </div>
+  <!-- <p-messages [(value)]="msgs" [enableService]="false"></p-messages> -->
+
+  <ng-template pTemplate="footer">
+    <button pButton icon="pi pi-print" (click)="confirmPrint()" label="طباعة" class="p-button-outlined"></button>
+
+    <button type="text" (click)="print=false" pButton icon="pi pi-times" label="إلغاء" class="p-button-danger"
+      style="width:auto;"></button>
+
+  </ng-template>
+</p-dialog>
+
