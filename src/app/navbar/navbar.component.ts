@@ -1149,11 +1149,11 @@ a .aya_link{
     a.document.write('</html>');
     console.log(a.document)
 
-    a.document.close();
+    // a.document.close();
     a.focus();
     setTimeout(() => {
       a.print();
-      a.close();
+      // a.close();
       this.imges = JSON.parse(JSON.stringify(this.tempimges));//to deep copy
 
     }, 1000)

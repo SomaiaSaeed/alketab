@@ -1,7 +1,7 @@
 <div style="height:700px">
   <div class="row">
 
-    <div class="col">
+    <div class="col mt-3">
       <span (click)="CloseGrid.emit()" aria-label="Close" class="close"
         style="float: right;padding-right: 20px;cursor: pointer">
         &times;
@@ -13,7 +13,7 @@
         <i class="fa fa-file-pdf-o" style="font-size:25px;color:red"></i></button>
       <!--   <button style="float: right;margin-right: 20px" (click)="exportAsWord()">-->
       <!--      <i class="fa fa-file-word-o" style="font-size:25px;color:blue"></i></button>-->
-      <span *ngIf="numOfMoade3" style="float: right;margin-right: 20px">
+      <span *ngIf="numOfMoade3"  style="float: right;margin-right: 20px">
         نتيجة البحث: {{numOfMoade3}} موضع
         في {{data.length}} اية </span>
 
