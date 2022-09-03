@@ -14,6 +14,10 @@
                        type="checkbox" value="1">
                 <label class="check" for="filled-in-box2">تكرار </label>
 
+            <input (change)="numberRepeatClicked($event)"
+                   type="text" [(ngModel)]="numberOfRepeated">
+            <label class="check" for="filled-in-box2">تكرار عدد مرات </label>
+
             <audio *ngFor="let row of sorats; let i = index"  [id]="'surahPlayer'+i"  controls="controls" (play)="onPlay(i)" (ended)="audioEnded(i)">
               <source  id="activeAyah" src="{{row}}" title="1" type="audio/mp3">
             </audio>

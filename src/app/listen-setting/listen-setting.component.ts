@@ -401,14 +401,23 @@ ayat:any[]=[]
   audio: any;
 
 numberOfRepeated:number;
-  wasatClicked($event: MouseEvent) {
-    this.repeated = true;
-    this.numberOfRepeated=3;
-  }
+count:number;
 
   onChange($event: any) {
 
     this.texts.push($event);
+  }
+  wasatClicked($event: MouseEvent) {
+    // this.repeated = true;
+    // this.numberOfRepeated=3;
+    this.count=0;
+  }
+  numberRepeatClicked(event) {
+    // this.repeated = true;
+    debugger
+    this.numberOfRepeated=event.target.value;
+    debugger
+    this.count=0;
   }
 played:boolean;
   audioEnded(ayaNum){
@@ -417,7 +426,8 @@ played:boolean;
       this.currentIndex = ayaNum+1;
       this.playNextAya(this.currentIndex );
     }
-    if(ayaNum==this.audioCount-1&&this.repeated){
+    if(ayaNum==this.audioCount-1&&this.repeated||(ayaNum==this.audioCount-1&&this.numberOfRepeated-2>=this.count)){
+      this.count++;
       let audio:any = document.getElementById("surahPlayer0");
       audio.play();
     }
