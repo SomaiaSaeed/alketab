@@ -109,6 +109,17 @@ a:-webkit-any-link {
   border-color: transparent transparent chocolate transparent;
 }
 
+.page-num {
+  position: absolute;
+  top: 740px;
+  left: 240px;
+  width: 0;
+  height: 0;
+  // border-style: solid;
+  // border-width: 0 0 50px 50px;
+  // border-color: transparent transparent chocolate transparent;
+}
+
 .triangle-left {
   position: absolute;
   top: 685px;

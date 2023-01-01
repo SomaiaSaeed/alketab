@@ -31,7 +31,7 @@ export class HolyQuranComponent implements OnInit {
     spans: ({ aya: string, top: string; left: string; width: string; height: string })[];
     motashabehatSpans: { isRight: boolean; moade3: string, height: string, top: string }[];
     spansOfColoredWords: { top: string; left: string; width: string; color: string }[];
-    isActive: boolean; href: string; activeAya: string
+    isActive: boolean; href: string; activeAya: number
   })[] = [];
   isShiftedVertically: boolean = false;
   quranPageImage: String;
@@ -71,18 +71,20 @@ export class HolyQuranComponent implements OnInit {
   private x: {
     suraWithIndex: string,
     errorFactor: string,
-    id: string,
+    top:string;
+    id: number,
     text: string,
-    index: string,
+    index: number,
     sura: string,
     lastWord?: String,
   }[] = [];
   private allAyas: {
     errorFactor: string,
-    id: string,
+    top: string,
+    id: number,
     aya: string,
     numOfCharsInWholeAya: number,
-    ayaIndex: string,
+    ayaIndex: number,
     arrOfColoredWords: {
       word: string,
       color: string,
@@ -95,13 +97,12 @@ export class HolyQuranComponent implements OnInit {
     mooade3: {
       suraWithIndex: string,
       aya?: string,
-      id: string,
+      id: number,
       color: string
     }[]
   }[] = [];
 
   constructor(private _quranPages: QuranPages, private _quranInJson: QuranInJson,) {
-  debugger
   }
 
   findSuras(sura) {
@@ -113,7 +114,7 @@ export class HolyQuranComponent implements OnInit {
   ngOnInit() {
     // debugger;
     // this.lastTop = 10;
-    this.quranPageImage = 'assets/' + this.pageNumber + '.png';
+    this.quranPageImage = 'assets/QuranImages_50/' + this.pageNumber + '.png';
 
     // this.generateMotashabehatOfSelectedPage(this.pageNumber);
     // console.log(this.allAyas);
@@ -140,7 +141,7 @@ export class HolyQuranComponent implements OnInit {
     this.motahabehClick.emit($event);
   }
 
-  addStaticMotashabehat(ayaInPage: { index: string; id: string; customMotashabehat: { motshabeh: string, id: string, color: string, word: string, lineIndex: string, left?: string, aya: string }[]; errorFactor: string; text: string }, ayaDetails: { aya: string; errorFactor: string; id: string; numOfCharsInWholeAya: number; ayaIndex: string; arrOfColoredWords: any[]; sura: string; suraWithIndex: string; mooade3: { suraWithIndex: string; aya?: string, id: string, color: string }[] }) {
+  addStaticMotashabehat(ayaInPage: { index: number; id: number; customMotashabehat: { motshabeh: string, id: number, color: string, word: string, lineIndex: string, left?: string, aya: string }[]; errorFactor: string; text: string }, ayaDetails: { aya: string; errorFactor: string; id: number; numOfCharsInWholeAya: number; ayaIndex: number; arrOfColoredWords: any[]; sura: string; suraWithIndex: string; mooade3: { suraWithIndex: string; aya?: string, id: number, color: string }[] }) {
     debugger;
     if (ayaInPage.customMotashabehat.length > 0) {
       ayaInPage.customMotashabehat.forEach(mot => {
@@ -186,7 +187,7 @@ export class HolyQuranComponent implements OnInit {
 
   EmitColorChange($event: any) {
     this.lastTop = 10;
-    this.marginTop = 50;
+    this.marginTop = 20;
     this.inputs = [];
     this.isNextAyaLeft =false;
     this.isShiftedVertically = false;
@@ -216,21 +217,22 @@ export class HolyQuranComponent implements OnInit {
       let ayaDetails: {
         aya: string,
         errorFactor: string,
-        id: string,
+        top: string;
+        id: number,
         numOfCharsInWholeAya: number,
-        ayaIndex: string,
+        ayaIndex: number,
         arrOfColoredWords: any[],
         sura: string,
         suraWithIndex: string,
         mooade3: {
           suraWithIndex: string,
           aya?: string,
-          id: string,
+          id: number,
           color: string
         }[]
       } = {
-        arrOfColoredWords: [], errorFactor: '', id: '', mooade3: [], suraWithIndex: '', sura: '',
-        aya: '', ayaIndex: '', numOfCharsInWholeAya: 0,
+        arrOfColoredWords: [], errorFactor: '',top:'', id: 0, mooade3: [], suraWithIndex: '', sura: '',
+        aya: '', ayaIndex: 0, numOfCharsInWholeAya: 0,
       };
       let arrayOfMot = [];
       let arrayOfWordsWithColors = [];
@@ -250,6 +252,7 @@ export class HolyQuranComponent implements OnInit {
               this.x.push({
                 id: ayaInPage.id,
                 errorFactor: ayaInPage.errorFactor,
+                top: ayaInPage.top,
                 text: aya.text,
                 index: aya.index,
                 suraWithIndex: sura.name + ' (' + aya.index + ') ',
@@ -274,6 +277,7 @@ export class HolyQuranComponent implements OnInit {
             ayaDetails =
               {
                 errorFactor: this.x[0].errorFactor,
+                top:this.x[0].top,
                 id: this.x[0].id,
                 aya: this.x[0].text,
                 numOfCharsInWholeAya: this.x[0].text.length,
@@ -302,6 +306,7 @@ export class HolyQuranComponent implements OnInit {
             });
             ayaDetails = {
               errorFactor: this.x[0].errorFactor,
+              top:this.x[0].top,
               id: this.x[0].id,
               aya: this.x[0].text,
               numOfCharsInWholeAya: this.x[0].text.length,
@@ -329,6 +334,7 @@ export class HolyQuranComponent implements OnInit {
             });
             ayaDetails = {
               errorFactor: this.x[0].errorFactor,
+              top:this.x[0].top,
               id: this.x[0].id,
               aya: this.x[0].text,
               numOfCharsInWholeAya: this.x[0].text.length,
@@ -356,6 +362,7 @@ export class HolyQuranComponent implements OnInit {
             });
             ayaDetails = {
               errorFactor: this.x[0].errorFactor,
+              top:this.x[0].top,
               id: this.x[0].id,
               aya: this.x[0].text,
               numOfCharsInWholeAya: this.x[0].text.length,
@@ -383,6 +390,7 @@ export class HolyQuranComponent implements OnInit {
               });
               ayaDetails = {
                 errorFactor: this.x[0].errorFactor,
+                top:this.x[0].top,
                 id: this.x[0].id,
                 aya: this.x[0].text,
                 numOfCharsInWholeAya: this.x[0].text.length,
@@ -402,15 +410,16 @@ export class HolyQuranComponent implements OnInit {
           }
         }
       }
-      ayaDetails = this.addStaticMotashabehat(ayaInPage, ayaDetails);
+      // ayaDetails = this.addStaticMotashabehat(ayaInPage, ayaDetails);
       this.allAyas.push(ayaDetails);
     });
   }
 
   private determineHighlight() {
+    debugger;
     let ayasLines = [];
     this.allAyas.forEach(aya => {
-      if (parseInt(aya.ayaIndex) == 1) {
+      if (aya.ayaIndex == 1) {
         this.marginTop = 95;
       }
       let ayaStart = this.marginTop;
@@ -423,13 +432,14 @@ export class HolyQuranComponent implements OnInit {
         if (operation == '+') {
           numOfAyaChars = numOfAyaChars + parseInt(factor);
         } else {
+          debugger;
           numOfAyaChars = numOfAyaChars - parseInt(factor);
         }
 
       }
 
 
-      // console.log('numOfAyaChars: ' + numOfAyaChars);
+      console.log('numOfAyaChars: ' + numOfAyaChars);
       let isFirst = true;
       let temp = [];
       while (numOfAyaChars >= 0) {
@@ -474,11 +484,24 @@ export class HolyQuranComponent implements OnInit {
       }
       // console.log('ayasLines: ' + ayasLines);
       let spans = [];
+      // let verticalErorr = this.marginTop;
+
       for (let i = 0; i < ayasLines.length; i++) {
         let ayaText = '';
+        // ----------------------
+        let operationY = aya.top?.split(' ')[0];
+        let factorY = aya.top?.split(' ')[1];
+        if (aya.top && operationY == '+') {
+          debugger;
+          this.marginTop += parseInt(factorY);
+        } else if(aya.top && operationY == '-') {
+          this.marginTop -= parseInt(factorY);
+        }
+                // ----------------------
+
         spans.push({
           aya: aya.aya,
-          top: this.marginTop + 'px',
+          top:  this.marginTop + 'px',
           left: temp.length != 0 ? i == 0 ? 60 + 'px' : 60 + (80 - ayasLines[i]) * 5 + 'px' : 60 + (80 - ayasLines[i]) * 5 + 'px',
           width: ayasLines[i] * 5 + 'px',
           height: '35px'
@@ -488,13 +511,13 @@ export class HolyQuranComponent implements OnInit {
         }
         this.isShiftedVertically = i == ayasLines.length - 1;
       }
-      ayaEnd = this.marginTop;
+      ayaEnd =  this.marginTop;
       this.motashabehatSpans = [];
       this.inputs.push({
         motashabehat: {top: '', height: '', isRight: this.isNextAyaLeft, moade3: []},
         ayat: [],
         aya: aya.aya,
-        ayaId: aya.id,
+        ayaId: aya.id.toString(),
         isActive: false,
         href: '#' + aya.ayaIndex,
         activeAya: aya.ayaIndex,
@@ -509,17 +532,18 @@ export class HolyQuranComponent implements OnInit {
 
   private drawMotashabehat(aya: {
     errorFactor: string,
-    id: string,
+    top: string,
+    id: number,
     aya: string,
     numOfCharsInWholeAya: number,
-    ayaIndex: string,
+    ayaIndex: number,
     arrOfColoredWords: any[],
     sura: string,
     suraWithIndex: string,
     mooade3: {
       suraWithIndex: string,
       aya?: string,
-      id: string,
+      id: number,
       color: string
     }[]
   }, ayaStart: number, ayaEnd: number) {
@@ -636,7 +660,7 @@ export class HolyQuranComponent implements OnInit {
     }
   }
 
-  private fillRightArrayFirst(index, mooade3: { suraWithIndex: string; aya?: string, id: string }[], ayaStart, ayaEnd) {
+  private fillRightArrayFirst(index, mooade3: { suraWithIndex: string; aya?: string, id: number }[], ayaStart, ayaEnd) {
     // debugger
     let rightArr = '';
     // let  ayat =[];
@@ -676,14 +700,14 @@ export class HolyQuranComponent implements OnInit {
 
   }
 
-  private addMoade3(index: number, moade3: { suraWithIndex: string; aya?: string; id: string, color: string }[], ayaStart: number, ayaEnd: number) {
+  private addMoade3(index: number, moade3: { suraWithIndex: string; aya?: string; id: number, color: string }[], ayaStart: number, ayaEnd: number) {
     let motashabehat: { isRight: boolean; moade3: any[], height: string, top: string } = {
       top: '',
       height: '',
       isRight: this.isNextAyaLeft,
       moade3: []
     };
-    let arr: { top: string, suraWithIndex: string; aya?: string; id: string, color: string }[] = [];
+    let arr: { top: string, suraWithIndex: string; aya?: string; id: number, color: string }[] = [];
     if (this.lastTop == 10) {
       this.lastTop = ayaStart;
     } else {

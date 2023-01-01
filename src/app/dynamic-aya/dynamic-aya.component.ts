@@ -162,6 +162,10 @@ export class DynamicAyaComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // this.bakgroundStyle = { background: "yellow", opacity: .2, motashOpacity: 1 };
+
+
     this.moade3 = this.motashabehat.moade3;
     if (this.moade3 && this.moade3.length > 0) {
       console.log("motashabehat::" + this.moade3[this.moade3.length - 1].top);

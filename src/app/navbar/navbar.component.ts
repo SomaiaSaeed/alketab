@@ -116,7 +116,7 @@ export class NavbarComponent implements OnInit {
   searchInput: string;
 
   //4,5,6,7,8,9,10,11,77,78,79,80,81,82,83,84,85
-  imges: any[] = [77];
+  imges: any[] = [3];
   tempimges: any[] = [77];
   selectedPage: number;
 
@@ -124,8 +124,10 @@ export class NavbarComponent implements OnInit {
 
   static ind = 0;
   ngOnInit() {
+    for (let i = 1; i <= 604; i++) {
+      this.imges.push(i);
+    }
     this.selectedPage = this.imges[0];
-
   }
 
 
@@ -417,7 +419,7 @@ export class NavbarComponent implements OnInit {
     for (let i = 0; i < this._quranPages.pages.length; i++) {
       for (let j = 0; j < this._quranPages.pages[i].ayas.length; j++) {
         if (this._quranPages.pages[i].ayas[j].id == ayaId.toString()) {
-          this.selectedPage = parseInt(this._quranPages.pages[i].pageNumber);
+          this.selectedPage = this._quranPages.pages[i].pageNumber;
           console.log("move to page#:" + this.selectedPage);
           break;
         }

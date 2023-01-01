@@ -106,7 +106,7 @@ bottom: 300px">
 <div style="overflow: hidden;height: 875px !important">
   <div *ngFor="let img of imges">
     <app-holy-quran (motahabehClick)="onMotahabehClick($event)" (onClick)="onAyaClicked($event)"
-      (onRight)="onRightAyaClicked($event)" *ngIf="!showListOfAyah &&!sagdatFlag " [pageNumber]="img"
+      (onRight)="onRightAyaClicked($event)" *ngIf="!showListOfAyah &&!sagdatFlag && selectedPage==img " [pageNumber]="img"
       [selectedMotashabeh2]="selectedMotashabeh2"></app-holy-quran>
 
   </div>
