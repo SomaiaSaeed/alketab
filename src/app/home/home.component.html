@@ -1,28 +1,29 @@
 
 
-<div *ngFor="let row of parts; let i = index" class="row">
+<!-- <div *ngFor="let row of parts; let i = index" class="row">
   <label><span></span>    {{i+1}}</label>
   <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12" >
     <label>{{row}}</label>
 </div>
-</div>
+</div> -->
+<div class="wrapper">
 
-<div class="JuzView_juzContainer__Jmn9s"> 
-    <div class="JuzView_juzTitle__mVq8J">
-      <span>Juz 1</span>
-      <span class="JuzView_readJuz__NNvrz">Read Juz</span>
-    </div>
-    <div class="JuzView_chapterContainer__Y8MMt">
-        <div class="SurahPreviewRow_container__3ZfRV">
-        <div class="SurahPreviewRow_left__jd1pg">
-          <div class="SurahPreviewRow_surahNumber__BICjx">
-          <span>1</span></div>
-          <div class="SurahPreviewRow_surahNameContainer__b78tP">
-            <div class="SurahPreviewRow_surahName__jrca5">Al-Fatihah</div>
-                  <div class="SurahPreviewRow_surahNameContainer__b78tP">
-                    <div class="SurahPreviewRow_surahName__jrca5">Al-Baqarah</div>
-          </div>
-</div>
-</div>
-</div>
+	<ol    *ngFor="let row of parts; let i = index ">
+	
+      <li>
+        <span>	{{i+1}}</span>
+        <span> {{row}}</span>
+		</li>
+    </ol>
+  </div>
+<!-- <div class="wrapper">
 
+	<ol     *ngFor="let row of fehres">
+	
+      <li>
+        <span>	{{row.sur}}</span>
+        <span> {{row.page}}</span>
+		</li>
+    </ol>
+  </div>
+  -->

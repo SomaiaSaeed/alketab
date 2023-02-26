@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   juzs: ({ id: number;  verse_mapping: string[]; juz_number: number,first_verse_id:number;last_verse_id:number,verses_count:number })[];
   parts:any[]=[];
-
+  fehres: ({ sur: string;page:number})[];  
 
   constructor(private router: Router,private http: HttpClient) {
     this.juzs= [
@@ -421,14 +421,134 @@ export class HomeComponent implements OnInit {
           "verses_count": 564
       }
   ]
-  }
+  
+  this.fehres= 
+    [
+       
+        {"sur":"الفاتحة","page":1},
+        {"sur": "البقرة","page":2},
+        {"sur": "ال عمران","page":50},
+        {"sur": "النساء","page":77},
+        {"sur": "المائدة","page":106},
+        {"sur": "الأنعام" ,"page":128},
+        {"sur": "الأعراف","page":151},
+        {"sur": "الأنفال" ,"page":177},
+        {"sur": "التوبه" ,"page":187},
+        {"sur":  "يونس","page":208},
+        {"sur": "هود" ,"page":221},
+        {"sur":     "يوسف","page":235},
+        {"sur": "الرعد" ,"page":249},
+        {"sur": "ابراهيم" ,"page":255},
+        {"sur": "الحجر" ,"page":262},
+        {"sur":  "النحل","page":267},
+        {"sur":  "الاسراء","page":282},
+        {"sur": "الكهف" ,"page":293},
+        {"sur": "مريم" ,"page":305},
+        {"sur": "طه" ,"page":312},
+        {"sur": "الانبياء" ,"page":322},
+        {"sur": "الحج" ,"page":332},
+        {"sur": "المؤمنون" ,"page":342},
+        {"sur":   "النور","page":350},
+        {"sur":  "الفرقان","page":359},
+        {"sur":  "الشعراء" ,"page":367},
+        {"sur":  "النمل","page":377},
+        {"sur": "القصص" ,"page":385},
+        {"sur": "العنكبوت" ,"page":396},
+        {"sur":  "الروم","page":404},
+        {"sur":  "لقمان","page":411},
+        {"sur":"السجدة" ,"page":415},
+        {"sur":  "الأحزاب","page":418},
+        {"sur": "سبأ","page":428},
+        {"sur":"فاطر" ,"page":434},
+        {"sur": "يس","page":440},
+        {"sur": "الصافات" ,"page":446},
+        {"sur":"ص" ,"page":453},
+        {"sur": "الزمر","page":458},
+        {"sur":  "غافر","page":467},
+        {"sur":"فصلت" ,"page":477},
+        {"sur": "الشوري" ,"page":483},
+        {"sur": "الزخرف","page":487},
+        {"sur": "الدخان","page":496},
+        {"sur":  "الجاثية","page":499},
+        {"sur": "الأحقاف" ,"page":502},
+        {"sur": "محمد" ,"page":507},
+        {"sur": "الفتح" ,"page":511},
+        {"sur": "الحجرات" ,"page":515},
+        {"sur":"ق" ,"page":518},
+        {"sur": "الذاريات" ,"page":520},
+        {"sur": "الطور" ,"page":523},
+        {"sur": "النجم" ,"page":526},
+        {"sur":"القمر" ,"page":528},        
+        {"sur": "الرحمن","page":531},
+        {"sur": "الواقعه","page":534},
+        {"sur":"الحديد" ,"page":537},
+        {"sur":"المجادله" ,"page":542},
+        {"sur": "الحشر","page":545},
+        {"sur": "الممتحنة","page":548},
+        {"sur": "الصف","page":551},
+        {"sur": "الجمعة","page":553},
+        {"sur": "المنافقون","page":554},
+        {"sur": "التغابن","page":556},
+        {"sur": "الطلاق","page":558},
+        {"sur": "التحريم","page":560},
+        {"sur": "الملك","page":562},
+        {"sur": "القلم","page":564},
+        {"sur": "الحاقة","page":566},
+        {"sur": "المعارج","page":568},
+        {"sur": "نوح","page":570},
+        {"sur": "الجن","page":572},
+        {"sur": "المزمل","page":574},
+        {"sur": "المدثر","page":575},
+        {"sur": "القيامة","page":577},
+        {"sur": "الانسان","page":578},
+        {"sur": "المرسلات","page":580},
+        {"sur": "النبأ","page":582},
+        {"sur": "النازعات","page":583},
+        {"sur": "عبس","page":585},
+        {"sur": "التكوير","page":586},
+        {"sur": "الانفطار","page":587},
+        {"sur": "المطففين","page":587},
+        {"sur": "الانشقاق","page":589},
+        {"sur": "البروج","page":590},
+        {"sur": "الطارق","page":591},
+        {"sur": "الأعلي","page":591},
+        {"sur": "الغاشية","page":592},
+        {"sur": "الفجر","page":593},
+        {"sur": "البلد","page":594},
+        {"sur": "الشمس","page":595},
+        {"sur": "الليل","page":595},
+        {"sur": "الضحي","page":596},
+        {"sur": "الشرح","page":596},
+        {"sur": "التين","page":597},
+        {"sur": "العلق","page":597},
+        {"sur": "القدر","page":598},
+        {"sur": "البينة","page":598},
+        {"sur": "الزلزلة","page":599},
+        {"sur": "العاديات","page":599},
+        {"sur": "القارعة","page":600},
+        {"sur": "التكاثر","page":600},
+        {"sur": "العصر","page":601},
+        {"sur": "الهمزة","page":601},
+        {"sur": "الفيل","page":601},
+        {"sur": "قريش","page":602},
+        {"sur": "الماعون","page":602},
+        {"sur": "الكوثر","page":602},
+        {"sur": "الكافرون","page":603},
+        {"sur": "النصر","page":603},
+        {"sur": "المسد","page":603},
+        {"sur": "الاخلاص","page":604},
+        {"sur": "الفلق","page":604},
+        {"sur": "الناس","page":604}
+]
+}
   ngOnInit(): void {
-this.allParts();                                }
- 
+this.allParts();     
+  }
 
       
   allParts() {
         this.juzs.forEach((aya)=>{
+        
           this.parts.push(aya.verse_mapping);
         });
       
