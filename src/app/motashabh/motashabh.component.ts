@@ -447,7 +447,7 @@ export class MotashabhComponent implements OnInit {
     this.results.push('بداية_الصفحة');
     this.results.push('اسم_السورة');
     this.results.push('الآية');
-    console.log(this.texts);
+    // console.log(this.texts);
 
   }
 

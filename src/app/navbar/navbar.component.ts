@@ -410,7 +410,7 @@ export class NavbarComponent implements OnInit {
   }) {
     debugger
     this.selectedMotashabeh2 = motshabh.code;
-    console.log(`selectedMotashabeh2:${this.selectedMotashabeh2}`)
+    // console.log(`selectedMotashabeh2:${this.selectedMotashabeh2}`)
 
   }
 
@@ -440,8 +440,9 @@ export class NavbarComponent implements OnInit {
   search(event) {
     debugger
     this.searchWord = event.query;
+    let word  = event.query;
     this.results = [];
-    let word = event.query.replace(new RegExp(String.fromCharCode(1617, 124, 1614, 124, 1611, 124, 1615, 124, 1612, 124, 1616, 124, 1613, 124, 1618, 3161, 1552), "g"), "");
+     word = word.replace(new RegExp(String.fromCharCode(1617, 124, 1614, 124, 1611, 124, 1615, 124, 1612, 124, 1616, 124, 1613, 124, 1618, 3161, 1552), "g"), "");
     if (word != event.query) {
       this.hasTashkeel = true;
       this._search.table_othmani.forEach(aya => {

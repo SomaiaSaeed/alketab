@@ -7,7 +7,13 @@
   </div>
   <span *ngFor="let s of spans;let i = index" [style.background]="isActive?bakgroundStyle2.background:bakgroundStyle.background"
     [style.height]="s.height" [style.left]="s.left" [style.opacity]="bakgroundStyle.opacity" [style.top]="s.top"
-    [style.width]="s.width" class="aya"><i *ngIf="i==spans.length-1" style="background-color: red;">|</i></span>
+    [style.width]="s.width" class="aya"><span *ngIf="i==spans.length-1" style=" width: 50px;top: -17px;position: absolute;">
+      <span  (click)="maximizeHighlightedAya($event)" style=" color: rgb(15, 15, 15); width: 30px; cursor: pointer; top:-20px"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
+      <span (click)="minimizeHighlightedAya($event)" style=" color: rgba(254, 0, 0, 0.456); width: 30px; cursor: pointer;"><i class="fa fa-minus-square" aria-hidden="true"></i></span>
+      </span>
+
+
+    </span>
 
   <span *ngFor="let word of arrOfColoredWords" [style.border]="word.isStatic?'2px solid '+word.color:''"
     [style.border-bottom]="'3px solid '+word.color" [style.height]="word.isStatic?'35px':''" [style.left]="word.left"
@@ -113,3 +119,8 @@
 
   </ng-template>
 </p-dialog>
+
+
+<span *ngIf="isActive" style=" top: 80px;position: fixed;">
+  <p-inputNumber [(ngModel)]="val"></p-inputNumber>
+</span>

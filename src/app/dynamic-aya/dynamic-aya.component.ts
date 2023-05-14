@@ -11,7 +11,8 @@ export class DynamicAyaComponent implements OnInit {
   @Input() ayaId: number;
   @Input() href: String;
   @Input() activeAya: any;
-  @Input() isActive: boolean;
+  @Input() errorFactor: any;
+  @Input() isActive: boolean = false;
   @Input() spans: { top: string; left: string; width: string; height: string }[];
   @Input() arrOfColoredWords: { top: string; left: string; width: string; color: string, isStatic: boolean }[];
   @Input() ayat: [];
@@ -23,6 +24,7 @@ export class DynamicAyaComponent implements OnInit {
     isRight: true,
     moade3: []
   };
+  val: number = 5;
   // test = [{name: "البقرة (15)", top: "45px", isRight: true,}, {
   //   name: "الرعد (5)",
   //   top: "75px",
@@ -164,11 +166,12 @@ export class DynamicAyaComponent implements OnInit {
   ngOnInit() {
 
     // this.bakgroundStyle = { background: "yellow", opacity: .2, motashOpacity: 1 };
+    this.bakgroundStyle2 = { background: "blue", opacity: .2, motashOpacity: 0.2 }
 
 
     this.moade3 = this.motashabehat.moade3;
     if (this.moade3 && this.moade3.length > 0) {
-      console.log("motashabehat::" + this.moade3[this.moade3.length - 1].top);
+      // console.log("motashabehat::" + this.moade3[this.moade3.length - 1].top);
       this.lineTop = (parseInt(this.moade3[this.moade3.length - 1].top.replace('px', '')) + 25).toString() + 'px';
     }
 
@@ -197,24 +200,71 @@ export class DynamicAyaComponent implements OnInit {
   }
 
   aya_clicked(event) {
-    this.onClick.emit(this.ayaId);
+    // this.isActive = true;
+    this.bakgroundStyle2 = { background: "blue", opacity: .2, motashOpacity: 0.2 }
+    this.onClick.emit({
+      event: event,
+      ayaId: this.ayaId,
+      errorFactor: this.errorFactor
+    });
     // this.activeAya = ayaNum;
     // if(this.activeAya == this.href.split('#')[1])
     // this.ayaIsClicked = true;
 
-    this.bakgroundStyle2 = { background: "blue", opacity: .2, motashOpacity: 0.2 }
     // event.preventDefault();
     // event.stopPropagation();
   }
 
+
+  maximizeHighlightedAya($event: any) {
+    debugger;
+    // this.isActive = true;
+    this.bakgroundStyle2 = { background: "blue", opacity: .2, motashOpacity: 0.2 }
+
+    if (this.errorFactor != '') {
+      let operation = this.errorFactor.split(' ')[0];
+      let factor =
+        operation == '+'
+          ?
+          parseInt(this.errorFactor.split(' ')[1]) + this.val
+          : parseInt(this.errorFactor.split(' ')[1]) - this.val;
+      this.errorFactor = `${operation} ${factor}`
+    } else {
+      this.errorFactor = '+ 1'
+    }
+    console.log(`errorFactor for Aya# ${this.ayaId}: ${this.errorFactor}`)
+
+  }
+
+  minimizeHighlightedAya($event: any) {
+    debugger;
+    // this.isActive = true;
+    this.bakgroundStyle2 = { background: "blue", opacity: .2, motashOpacity: 0.2 }
+
+
+    if (this.errorFactor != '') {
+      let operation = this.errorFactor.split(' ')[0];
+      let factor =
+        operation == '+'
+          ?
+          parseInt(this.errorFactor.split(' ')[1]) - this.val
+          : parseInt(this.errorFactor.split(' ')[1]) + this.val;
+      this.errorFactor = `${operation} ${factor}`
+    } else {
+      this.errorFactor = '- 1'
+    }
+    console.log(`errorFactor for Aya# ${this.ayaId}: ${this.errorFactor}`)
+
+
+  }
   onMouseEnter($event) {
-    // if(!this.ayaIsClicked)
-    this.bakgroundStyle = { background: "yellow", opacity: .2, motashOpacity: 0.2 };
+    if (!this.isActive)
+      this.bakgroundStyle = { background: "yellow", opacity: .2, motashOpacity: 0.2 };
   }
 
   onMouseOut($event: MouseEvent) {
-    // if(!this.ayaIsClicked)
-    this.bakgroundStyle = { background: "white", opacity: 0.0, motashOpacity: 1 };
+    if (!this.isActive)
+      this.bakgroundStyle = { background: "white", opacity: 0.0, motashOpacity: 1 };
   }
 
   onMotashabehRightClick(event, mot) {

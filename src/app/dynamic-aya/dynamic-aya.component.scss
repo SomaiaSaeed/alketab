@@ -32,3 +32,9 @@ a{
   text-align: justify;
   direction: rtl
 }
+:host {
+  ::ng-deep .p-inputtext {
+    width: 50px !important;
+    height: 25px;
+  }
+}

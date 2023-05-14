@@ -23,14 +23,14 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 @NgModule({
   declarations: [HolyQuranComponent, NavbarComponent,DynamicAyaComponent],
   imports: [
-    CommonModule, 
+    CommonModule,
     SidebarModule,
     NavbarRoutingModule,
     DropdownModule,
     FormsModule,
     MenuModule,
     DialogModule,
-     GridModule, 
+     GridModule,
     ColorPickerModule,
      ContextMenuModule,
     ButtonModule,

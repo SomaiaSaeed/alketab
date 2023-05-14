@@ -1,0 +1,29 @@
+{
+  "name": "ResourceCategory",
+  "Discriminator": "ResourceSpecCharacteristic",
+  "description": "Catgorization of the resource e.g. Device, Voucher, Component, ...etc",
+  "valueType": "String",
+  "characteristicSpecValue":
+  [
+      {
+          "Discriminator": "ResourceSpecCharacteristicValue",
+          "value": "Device",
+          "isDefault": false
+      },
+      {
+          "Discriminator": "ResourceSpecCharacteristicValue",
+          "value": "Voucher",
+          "isDefault": false
+      },
+      {
+          "Discriminator": "ResourceSpecCharacteristicValue",
+          "value": "Component",
+          "isDefault": true
+      },
+      {
+          "Discriminator": "ResourceSpecCharacteristicValue",
+          "value": "Accessory",
+          "isDefault": false
+      }
+  ]
+}

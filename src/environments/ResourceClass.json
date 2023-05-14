@@ -1,0 +1,20 @@
+{
+  "name": "ResourceClass",
+  "Discriminator": "ResourceSpecCharacteristic",
+
+  "description": "Classification of the resource categories. e.g. Component(SIM, MSISDN)",
+  "valueType": "String",
+  "characteristicSpecValue":
+  [
+      {
+        "Discriminator": "ResourceSpecCharacteristicValue",
+        "value": "SIM",
+        "isDefault": true
+    },
+    {
+        "Discriminator": "ResourceSpecCharacteristicValue",
+        "value": "MSISDN",
+        "isDefault": false
+    }
+]
+}

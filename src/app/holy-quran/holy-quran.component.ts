@@ -14,8 +14,11 @@ export class HolyQuranComponent implements OnInit {
   @Input() pageNumber: number;
   @Input('selectedMotashabeh2')
   set setNofMotashabeh(num) {
-    this.NofMotashabeh = num;
-    this.EmitColorChange(null)
+    debugger;
+
+    this.NofMotashabeh = (num==null)?7:num;
+    // if(num==7)
+    // this.EmitColorChange(null)
   }
   NofMotashabeh:number;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
@@ -31,7 +34,7 @@ export class HolyQuranComponent implements OnInit {
     spans: ({ aya: string, top: string; left: string; width: string; height: string })[];
     motashabehatSpans: { isRight: boolean; moade3: string, height: string, top: string }[];
     spansOfColoredWords: { top: string; left: string; width: string; color: string }[];
-    isActive: boolean; href: string; activeAya: number
+    isActive: boolean; href: string; activeAya: number,errorFactor:string
   })[] = [];
   isShiftedVertically: boolean = false;
   quranPageImage: String;
@@ -50,7 +53,7 @@ export class HolyQuranComponent implements OnInit {
     {color: '#FFA500', text: 'كلمة وحيدة وسط الأية'},// similar to orange
     {color: '#90ee90', text: 'موضعين وسط الأية'},// similar to lightGreen
     {color: '#ADD8E6', text: 'ثلاث مواضع وسط الأية'},// similar to lightBlue
-  
+
   ];
 
   // colors = [
@@ -112,8 +115,9 @@ export class HolyQuranComponent implements OnInit {
   }
 
   ngOnInit() {
-    // debugger;
+    debugger;
     // this.lastTop = 10;
+    this.NofMotashabeh = 7;
     this.quranPageImage = 'assets/QuranImages_50/' + this.pageNumber + '.png';
 
     // this.generateMotashabehatOfSelectedPage(this.pageNumber);
@@ -124,9 +128,103 @@ export class HolyQuranComponent implements OnInit {
     // this.drawColoredWords();
   }
 
+   selectedAyaIndex:any ;
+   selectedAyaId:any ;
+
   onAyaClick($event: any) {
+    debugger;
+    this.selectedAyaId = $event.ayaId;
     // inp.isActive = true
-    this.onClick.emit($event);
+    debugger;
+    // console.log($event.event.x)
+    this.onClick.emit($event.ayaId);
+     this.selectedAyaIndex = this.allAyas.findIndex(aya=> aya.id == parseInt($event.ayaId))
+debugger
+if(this.selectedAyaIndex>=0){
+  if(this.allAyas[this.selectedAyaIndex].errorFactor != $event.errorFactor){
+  this.allAyas[this.selectedAyaIndex].errorFactor = $event.errorFactor;
+  //-------------------------------------------
+  debugger;
+  this.lastTop = 10;
+  this.marginTop = 20;
+  this.inputs = [];
+  this.isNextAyaLeft =false;
+  this.isShiftedVertically = false;
+  this.arrOfAyaWords = [];
+  this.motashabehatSpans = [];
+  this.lastTopRight = 0;
+  this.lastTopLeft = 0;
+  this.spansOfColoredWords = [];
+  // this.searchWord = '';
+  // this.x = [];
+  // this.allAyas = [];
+
+
+  // this.generateMotashabehatOfSelectedPage(this.pageNumber);
+  // console.log(this.allAyas);
+
+  this.determineHighlight();
+
+  this.drawColoredWords();
+
+  // let selected = this.inputs.findIndex(aya=> aya.ayaId == $event.ayaId)
+  // if(selected >=0) this.inputs[selected].isActive = true;
+
+
+}
+let index = this.inputs.findIndex(aya=> aya.ayaId == ($event.ayaId))
+
+   if(index>=0) this.inputs[index].isActive = !this.inputs[index].isActive;
+
+}
+    // this.inputs[this.selectedAyaIndex].isActive = !this.inputs[this.selectedAyaIndex].isActive;
+
+  }
+
+  maximizeHighlightedAya($event: any) {
+    debugger;
+    // this.selectedAyaIndex;
+    let selectedAyaIndex = this.inputs.findIndex(aya=> aya.ayaId == this.selectedAyaId)
+
+   if(selectedAyaIndex>=0){
+    let aya = this.allAyas[this.selectedAyaIndex];
+    if (aya.errorFactor != '') {
+      let operation = aya.errorFactor.split(' ')[0];
+      let factor =
+      operation == '+'
+      ?
+      parseInt(aya.errorFactor.split(' ')[1]) + 1
+      : parseInt(aya.errorFactor.split(' ')[1]) - 1;
+      this.allAyas[this.selectedAyaIndex].errorFactor = `${operation} ${factor}`
+    } else{
+      this.allAyas[this.selectedAyaIndex].errorFactor = '+ 1'
+    }
+    console.log(`errorFactor for Aya# ${this.allAyas[this.selectedAyaIndex].ayaIndex}: ${this.allAyas[this.selectedAyaIndex].errorFactor}`)
+
+   }
+
+  }
+
+  minimizeHighlightedAya($event: any) {
+    debugger;
+    let selectedAyaIndex = this.inputs.findIndex(aya=> aya.ayaId == this.selectedAyaId)
+
+    if(selectedAyaIndex>=0){
+
+    let aya = this.allAyas[this.selectedAyaIndex];
+    if (aya.errorFactor != '') {
+      let operation = aya.errorFactor.split(' ')[0];
+      let factor =
+      operation == '+'
+      ?
+      parseInt(aya.errorFactor.split(' ')[1]) + 1
+      : parseInt(aya.errorFactor.split(' ')[1]) - 1;
+      this.allAyas[this.selectedAyaIndex].errorFactor = `${operation} ${factor}`
+    } else{
+      this.allAyas[this.selectedAyaIndex].errorFactor = '- 1'
+    }
+    console.log(`errorFactor for Aya# ${this.allAyas[this.selectedAyaIndex].ayaIndex}: ${this.allAyas[this.selectedAyaIndex].errorFactor}`)
+  }
   }
 
   onRightClick($event: any) {
@@ -186,6 +284,7 @@ export class HolyQuranComponent implements OnInit {
   }
 
   EmitColorChange($event: any) {
+    debugger;
     this.lastTop = 10;
     this.marginTop = 20;
     this.inputs = [];
@@ -202,7 +301,7 @@ export class HolyQuranComponent implements OnInit {
 
 
     this.generateMotashabehatOfSelectedPage(this.pageNumber);
-    console.log(this.allAyas);
+    // console.log(this.allAyas);
 
     this.determineHighlight();
 
@@ -379,7 +478,7 @@ export class HolyQuranComponent implements OnInit {
 
         } else if (this.x.length > 4) {
           arrayOfWordsWithColors.push({word: this.x[0].lastWord, color: this.colors[4].color,});
-          if (countSuras.length <= 6 || this.x.length <= 7) {
+          if (countSuras.length <= this.NofMotashabeh ) {//|| this.x.length <= this.NofMotashabeh
             if (!isCheckIn) {
               this.x.forEach(mode3 => {
                 arrayOfMot.push({
@@ -423,7 +522,7 @@ export class HolyQuranComponent implements OnInit {
         this.marginTop = 95;
       }
       let ayaStart = this.marginTop;
-      let ayaEnd;
+      let ayaEnd: number;
 
       let numOfAyaChars = aya.numOfCharsInWholeAya;
       if (aya.errorFactor != '') {
@@ -439,49 +538,59 @@ export class HolyQuranComponent implements OnInit {
       }
 
 
-      console.log('numOfAyaChars: ' + numOfAyaChars);
+      // console.log('numOfAyaChars: ' + numOfAyaChars);
       let isFirst = true;
       let temp = [];
-      while (numOfAyaChars >= 0) {
-        if (isFirst) {
-          debugger;
-          temp = [];
-          if (numOfAyaChars >= 80 && ayasLines[ayasLines.length - 1] == 80) {
-            ayasLines = [];
-          } else if (ayasLines[ayasLines.length - 1] < 80) {//if(ayasLines[ayasLines.length-1]<80)
-            this.isNextAyaLeft = ayasLines[ayasLines.length - 1] > 45;
-            temp = ayasLines;
-            ayasLines = [];
-            numOfAyaChars = numOfAyaChars - (80 - temp[temp.length - 1]);
-            ayasLines.push(80 - temp[temp.length - 1]);
-            this.marginTop -= 43.75;
+      if (numOfAyaChars < 80 && ayasLines[ayasLines.length-1] >75) {
+        ayasLines=[numOfAyaChars];
+          this.isNextAyaLeft = numOfAyaChars < 45;
+          // temp = ayasLines;
+
+      } else{
+        while (numOfAyaChars >= 0) {
+
+
+          if (isFirst) {
+            debugger;
+            temp = [];
+            if (numOfAyaChars >= 80 && ayasLines[ayasLines.length - 1] == 80) {
+              ayasLines = [];
+            } else if (ayasLines[ayasLines.length - 1] < 80) {//if(ayasLines[ayasLines.length-1]<80)
+              this.isNextAyaLeft = ayasLines[ayasLines.length - 1] > 45;
+              temp = ayasLines;
+              ayasLines = [];
+              numOfAyaChars = numOfAyaChars - (80 - temp[temp.length - 1]);
+              ayasLines.push(80 - temp[temp.length - 1]);
+              this.marginTop -= 43.75;
+            }
           }
-        }
-        if (numOfAyaChars >= 0) {
-          if (numOfAyaChars >= 80) {
-            ayasLines.push(80);
-            numOfAyaChars = numOfAyaChars - 80;
-          } else {
-            if (temp.length > 0) {
-              // numOfAyaChars=  numOfAyaChars - (80 - temp[temp.length - 1]);
-              ayasLines.push(numOfAyaChars);
-              if (numOfAyaChars < 80) {
-                break;
+          if (numOfAyaChars >= 0) {
+            if (numOfAyaChars >= 80) {
+              ayasLines.push(80);
+              numOfAyaChars = numOfAyaChars - 80;
+            } else {
+              if (temp.length > 0) {
+                // numOfAyaChars=  numOfAyaChars - (80 - temp[temp.length - 1]);
+                ayasLines.push(numOfAyaChars);
+                if (numOfAyaChars < 80) {
+                  break;
+                }
+
+              } else {
+                ayasLines.push(numOfAyaChars);
+                numOfAyaChars = numOfAyaChars - 80;
               }
 
-            } else {
-              ayasLines.push(numOfAyaChars);
-              numOfAyaChars = numOfAyaChars - 80;
             }
 
+          } else {
+            break;
           }
 
-        } else {
-          break;
+          isFirst = false;
         }
-
-        isFirst = false;
       }
+
       // console.log('ayasLines: ' + ayasLines);
       let spans = [];
       // let verticalErorr = this.marginTop;
@@ -513,17 +622,19 @@ export class HolyQuranComponent implements OnInit {
       }
       ayaEnd =  this.marginTop;
       this.motashabehatSpans = [];
+      debugger;
       this.inputs.push({
         motashabehat: {top: '', height: '', isRight: this.isNextAyaLeft, moade3: []},
         ayat: [],
         aya: aya.aya,
         ayaId: aya.id.toString(),
-        isActive: false,
+        isActive: this.selectedAyaId == aya.id ,
         href: '#' + aya.ayaIndex,
         activeAya: aya.ayaIndex,
         spans: spans,
         motashabehatSpans: [],
-        spansOfColoredWords: []
+        spansOfColoredWords: [],
+        errorFactor: aya.errorFactor
       });
       this.drawMotashabehat(aya, ayaStart, ayaEnd);
 
@@ -652,9 +763,9 @@ export class HolyQuranComponent implements OnInit {
         previousColor = this.allAyas[j].arrOfColoredWords[i].color;
 
       }
-      console.log(this.spansOfColoredWords);
+      // console.log(this.spansOfColoredWords);
       this.inputs[j].spansOfColoredWords = this.spansOfColoredWords;
-      console.log(this.inputs[j]);
+      // console.log(this.inputs[j]);
 
 
     }
@@ -681,7 +792,7 @@ export class HolyQuranComponent implements OnInit {
             height: (ayaEnd - ayaStart - 15) + 'px'
           });
           this.inputs[index].motashabehatSpans = this.motashabehatSpans;
-          console.log(rightArr);
+          // console.log(rightArr);
         }
 
       } else {
@@ -692,7 +803,7 @@ export class HolyQuranComponent implements OnInit {
           height: (ayaEnd - ayaStart - 30) + 'px'
         });
         this.inputs[index].motashabehatSpans = this.motashabehatSpans;
-        console.log(rightArr);
+        // console.log(rightArr);
         return i;
       }
     }
@@ -729,7 +840,7 @@ export class HolyQuranComponent implements OnInit {
       });
 // debugger
       motashabehat.height = ((parseInt(arr[arr.length - 1].top) + 25) - parseInt(arr[0].top)) + 'px';
-      arr.length = this.NofMotashabeh<arr.length?this.NofMotashabeh:arr.length;
+      // arr.length = this.NofMotashabeh<arr.length?this.NofMotashabeh:arr.length;
       motashabehat.moade3 = arr;
       this.inputs[index].motashabehat = motashabehat;
 
