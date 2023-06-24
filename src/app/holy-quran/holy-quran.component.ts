@@ -120,12 +120,12 @@ export class HolyQuranComponent implements OnInit {
     this.NofMotashabeh = 7;
     this.quranPageImage = 'assets/QuranImages_50/' + this.pageNumber + '.png';
 
-    // this.generateMotashabehatOfSelectedPage(this.pageNumber);
-    // console.log(this.allAyas);
+    this.generateMotashabehatOfSelectedPage(this.pageNumber);
+    console.log(this.allAyas);
 
-    // this.determineHighlight();
+    this.determineHighlight();
 
-    // this.drawColoredWords();
+    this.drawColoredWords();
   }
 
    selectedAyaIndex:any ;
@@ -517,10 +517,11 @@ let index = this.inputs.findIndex(aya=> aya.ayaId == ($event.ayaId))
   private determineHighlight() {
     debugger;
     let ayasLines = [];
-    this.allAyas.forEach(aya => {
-      if (aya.ayaIndex == 1) {
-        this.marginTop = 95;
-      }
+    this.allAyas.forEach((aya,index) => {
+      debugger;
+        if(aya.ayaIndex == 1) this.marginTop = 95;
+        else if(index == 0) this.marginTop = 23;
+    
       let ayaStart = this.marginTop;
       let ayaEnd: number;
 
@@ -541,7 +542,7 @@ let index = this.inputs.findIndex(aya=> aya.ayaId == ($event.ayaId))
       // console.log('numOfAyaChars: ' + numOfAyaChars);
       let isFirst = true;
       let temp = [];
-      if (numOfAyaChars < 80 && ayasLines[ayasLines.length-1] >75) {
+      if (numOfAyaChars < 86 && ayasLines[ayasLines.length-1] >75) {
         ayasLines=[numOfAyaChars];
           this.isNextAyaLeft = numOfAyaChars < 45;
           // temp = ayasLines;
@@ -553,32 +554,32 @@ let index = this.inputs.findIndex(aya=> aya.ayaId == ($event.ayaId))
           if (isFirst) {
             debugger;
             temp = [];
-            if (numOfAyaChars >= 80 && ayasLines[ayasLines.length - 1] == 80) {
+            if (numOfAyaChars >= 86 && ayasLines[ayasLines.length - 1] == 86) {
               ayasLines = [];
-            } else if (ayasLines[ayasLines.length - 1] < 80) {//if(ayasLines[ayasLines.length-1]<80)
+            } else if (ayasLines[ayasLines.length - 1] < 86) {//if(ayasLines[ayasLines.length-1]<80)
               this.isNextAyaLeft = ayasLines[ayasLines.length - 1] > 45;
               temp = ayasLines;
               ayasLines = [];
-              numOfAyaChars = numOfAyaChars - (80 - temp[temp.length - 1]);
-              ayasLines.push(80 - temp[temp.length - 1]);
+              numOfAyaChars = numOfAyaChars - (86 - temp[temp.length - 1]);
+              ayasLines.push(86 - temp[temp.length - 1]);
               this.marginTop -= 43.75;
             }
           }
           if (numOfAyaChars >= 0) {
-            if (numOfAyaChars >= 80) {
-              ayasLines.push(80);
-              numOfAyaChars = numOfAyaChars - 80;
+            if (numOfAyaChars >= 86) {
+              ayasLines.push(86);
+              numOfAyaChars = numOfAyaChars - 86;
             } else {
               if (temp.length > 0) {
                 // numOfAyaChars=  numOfAyaChars - (80 - temp[temp.length - 1]);
                 ayasLines.push(numOfAyaChars);
-                if (numOfAyaChars < 80) {
+                if (numOfAyaChars < 86) {
                   break;
                 }
 
               } else {
                 ayasLines.push(numOfAyaChars);
-                numOfAyaChars = numOfAyaChars - 80;
+                numOfAyaChars = numOfAyaChars - 86;
               }
 
             }
@@ -611,11 +612,11 @@ let index = this.inputs.findIndex(aya=> aya.ayaId == ($event.ayaId))
         spans.push({
           aya: aya.aya,
           top:  this.marginTop + 'px',
-          left: temp.length != 0 ? i == 0 ? 60 + 'px' : 60 + (80 - ayasLines[i]) * 5 + 'px' : 60 + (80 - ayasLines[i]) * 5 + 'px',
+          left: temp.length != 0 ? i == 0 ? 60 + 'px' : 60 + (86 - ayasLines[i]) * 5 + 'px' : 60 + (86 - ayasLines[i]) * 5 + 'px',
           width: ayasLines[i] * 5 + 'px',
           height: '35px'
         });
-        if (i == ayasLines.length - 1 || i == 0 || ayasLines[i] == 80) {
+        if (i == ayasLines.length - 1 || i == 0 || ayasLines[i] == 86) {
           this.marginTop += 43.75;
         }
         this.isShiftedVertically = i == ayasLines.length - 1;
