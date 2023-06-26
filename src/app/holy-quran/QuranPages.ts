@@ -37,7 +37,7 @@ export class QuranPages {
                   "index": 1,
                   "id": 1,
                   "text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
-                  "errorFactor": ""
+                  "errorFactor": "- 50"
                },
                {
                   "customMotashabehat": [
@@ -46,7 +46,7 @@ export class QuranPages {
                   "index": 2,
                   "id": 2,
                   "text": "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ",
-                  "errorFactor": ""
+                  "errorFactor": "- 40"
                },
                {
                   "customMotashabehat": [
@@ -155,7 +155,9 @@ export class QuranPages {
                   "index": 6,
                   "id": 13,
                   "text": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ سَوَآءٌ عَلَيْهِمْ ءَأَنذَرْتَهُمْ أَمْ لَمْ تُنذِرْهُمْ لَا يُؤْمِنُونَ",
-                  "errorFactor": "+ 4"
+                  "errorFactor": "+ 12",
+                  "top": "+ 5"
+
                },
                {
                   "customMotashabehat": [
@@ -164,7 +166,8 @@ export class QuranPages {
                   "index": 7,
                   "id": 14,
                   "text": "خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمْ وَعَلَىٰ سَمْعِهِمْ وَعَلَىٰٓ أَبْصَٰرِهِمْ غِشَٰوَةٌ وَلَهُمْ عَذَابٌ عَظِيمٌ",
-                  "errorFactor": "+ 10"
+                  "errorFactor": "+ 20",
+                  
                },
                {
                   "customMotashabehat": [
@@ -173,8 +176,8 @@ export class QuranPages {
                   "index": 8,
                   "id": 15,
                   "text": "وَمِنَ ٱلنَّاسِ مَن يَقُولُ ءَامَنَّا بِٱللَّهِ وَبِٱلْيَوْمِ ٱلْءَاخِرِ وَمَا هُم بِمُؤْمِنِينَ",
-                  "errorFactor": "- 1",
-                  "top": "+ 2"
+                  "errorFactor": "+ 7",
+                  "top": "+ 8"
                },
                {
                   "customMotashabehat": [
@@ -183,7 +186,7 @@ export class QuranPages {
                   "index": 9,
                   "id": 16,
                   "text": "يُخَٰدِعُونَ ٱللَّهَ وَٱلَّذِينَ ءَامَنُوا۟ وَمَا يَخْدَعُونَ إِلَّآ أَنفُسَهُمْ وَمَا يَشْعُرُونَ",
-                  "errorFactor": "+ 7",
+                  "errorFactor": "+ 13",
                   "top": "+ 3"
                },
                {
@@ -193,7 +196,9 @@ export class QuranPages {
                   "index": 10,
                   "id": 17,
                   "text": "فِى قُلُوبِهِم مَّرَضٌ فَزَادَهُمُ ٱللَّهُ مَرَضًا وَلَهُمْ عَذَابٌ أَلِيمٌۢ بِمَا كَانُوا۟ يَكْذِبُونَ",
-                  "errorFactor": "+ 13"
+                  "errorFactor": "+ 22",
+                  "top": "+ 10"
+
                },
                {
                   "customMotashabehat": [
@@ -202,7 +207,7 @@ export class QuranPages {
                   "index": 11,
                   "id": 18,
                   "text": "وَإِذَا قِيلَ لَهُمْ لَا تُفْسِدُوا۟ فِى ٱلْأَرْضِ قَالُوٓا۟ إِنَّمَا نَحْنُ مُصْلِحُونَ",
-                  "errorFactor": "+ 9",
+                  "errorFactor": "+ 17",
                   "top": "+ 2"
                },
                {
@@ -212,8 +217,8 @@ export class QuranPages {
                   "index": 12,
                   "id": 19,
                   "text": "أَلَآ إِنَّهُمْ هُمُ ٱلْمُفْسِدُونَ وَلَٰكِن لَّا يَشْعُرُونَ",
-                  "errorFactor": "+ 6",
-                  "top": "+ 2"
+                  "errorFactor": "- 21",
+                  "top": "+ 7"
                },
                {
                   "customMotashabehat": [
@@ -223,7 +228,7 @@ export class QuranPages {
                   "id": 20,
                   "text": "وَإِذَا قِيلَ لَهُمْ ءَامِنُوا۟ كَمَآ ءَامَنَ ٱلنَّاسُ قَالُوٓا۟ أَنُؤْمِنُ كَمَآ ءَامَنَ ٱلسُّفَهَآءُ أَلَآ إِنَّهُمْ هُمُ ٱلسُّفَهَآءُ وَلَٰكِن لَّا يَعْلَمُونَ",
                   "errorFactor": "+ 69",
-                  "top": "+ 2"
+                  "top": "+ 10"
                },
                {
                   "customMotashabehat": [
@@ -232,8 +237,8 @@ export class QuranPages {
                   "index": 14,
                   "id": 21,
                   "text": "وَإِذَا لَقُوا۟ ٱلَّذِينَ ءَامَنُوا۟ قَالُوٓا۟ ءَامَنَّا وَإِذَا خَلَوْا۟ إِلَىٰ شَيَٰطِينِهِمْ قَالُوٓا۟ إِنَّا مَعَكُمْ إِنَّمَا نَحْنُ مُسْتَهْزِءُونَ",
-                  "errorFactor": "- 12",
-                  "top": "+ 2"
+                  "errorFactor": "- 2",
+                  "top": "+ 7"
                },
                {
                   "customMotashabehat": [
@@ -242,7 +247,7 @@ export class QuranPages {
                   "index": 15,
                   "id": 22,
                   "text": "ٱللَّهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ فِى طُغْيَٰنِهِمْ يَعْمَهُونَ",
-                  "errorFactor": "",
+                  "errorFactor": "+ 5",
                   "top": "+ 2"
                },
                {
@@ -252,8 +257,8 @@ export class QuranPages {
                   "index": 16,
                   "id": 23,
                   "text": "أُو۟لَٰٓئِكَ ٱلَّذِينَ ٱشْتَرَوُا۟ ٱلضَّلَٰلَةَ بِٱلْهُدَىٰ فَمَا رَبِحَت تِّجَٰرَتُهُمْ وَمَا كَانُوا۟ مُهْتَدِينَ",
-                  "errorFactor": "+ 8",
-                  "top": "+ 2"
+                  "errorFactor": "+ 18",
+                  "top": "+ 7"
                }
             ]
          },
