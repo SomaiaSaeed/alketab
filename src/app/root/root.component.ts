@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Search } from '../holy-quran/search';
 import { AutoComplete } from 'primeng/autocomplete';
+import { HttpClient } from '@angular/common/http';
 
 const SHADDA_FATHA = 1611;
 const FATHATAN = 1613;// Tanween fatha
@@ -14,8 +15,12 @@ const SMALL_ALEF = 1648;
 const GWAZ_ALWASL_ALWAQF = 1754;// ۚ
 const GWAZ_ALWASL = 1750;// ۖ
 const HAMZAT_WASL = 1649;//ٱ
-const TashkeelRegex = /[\u064B-\u0653]|[\u06E2]|[\u06DF-\u06ED]/g;
+const TashkeelRegex = /[\u064B-\u0653]|[\u06E2]|[\u06DF-\u06ED]/g; //  /[\u064B-\u0652]/g
 const HAMZATWASL_AMALLALEFRegex = /[\u0670]|[\u0671]/g;
+const searchURL = "assets/jsonData/searchJson.json";
+const ARABIC_CHARS_REG = /[\u0621-\u064A\s]+/g;
+const regex = /([\u0600-\u06FF])ِى/g; // to replace any arabic character followed by this char ِ and (ى) with (ي) 
+                                    // for example replace this (فِى سَبِيلِى)  with this (في سَبِيلي)  
 
 @Component({
   selector: 'app-rootpage',
@@ -58,8 +63,7 @@ export class RootComponent implements OnInit {
   isSameWord: boolean = false;
   alphabitcalOrder: boolean = false;
 
-  constructor(private _router: Router, private _search: Search
-  ) {
+  constructor(private _router: Router, private _http: HttpClient) {
   }
 
   ngOnInit() {
@@ -100,7 +104,20 @@ export class RootComponent implements OnInit {
       this.searchWord = event.query;
       this.results = [];
       debugger
-      var word = this.searchWord.replace(TashkeelRegex, "");
+      var word = event.query.replace(regex, '$1ي');
+      word = word.replace('ٱ', "ا");
+      word = word.replace( 'ٰ', "ا");//replace small Alef to Alef
+      word = word.replace( HAMZATWASL_AMALLALEFRegex, "ا");//replace small Alef to Alef
+      word = word.replace( 'ءا', "آ");//replace small Alef to Alef
+      word = word.replace( "ذالك", "ذلك");//replace small Alef to Alef
+      word = word.replace( "أولائك", "أولئك");//replace small Alef to Alef
+      word = word.replace( "لاكن", "لكن");//replace small Alef to Alef
+      word = word.replace( "ٱلَّيْلِ", "الليل");
+      word = word.replace( "علىا", "على");//replace small Alef to Alef
+      const match = word.match(ARABIC_CHARS_REG);
+       word = match && match.join('').trim();
+    
+      // var word = this.searchWord.replace(TashkeelRegex, "");
       debugger
       //  let harakat = String.fromCharCode(SHADDA, 124, FATHA, 124, SHADDA_FATHA, 124,
       //   DAMMA, 124, KASRA, 124, FATHATAN, 124,
@@ -128,7 +145,8 @@ export class RootComponent implements OnInit {
       // } else {
       debugger
       this.hasTashkeel = false;
-      this._search.table_othmani.forEach(aya => {
+      this._http.get<any>(searchURL).subscribe(response => {
+      response.forEach(aya => {
         // let text = aya.AyaText_Othmani.replace(new RegExp(String.fromCharCode(1617, 124, 1614, 124, 1611, 124, 1615, 124, 1612, 124, 1616, 124, 1613, 124, 1618,3161,1552), "g"), "");
 
         // if (this.searchIn.id == 1) {
@@ -142,6 +160,7 @@ export class RootComponent implements OnInit {
         // }
 
       });
+    });
     }
     // }
 
@@ -173,16 +192,24 @@ export class RootComponent implements OnInit {
     // }
     // this.searchWord =this.searchWord.split(' ')[0];
     // });
-    this.searchWord = this.searchWord.replace(TashkeelRegex, '');// remove Tashkeel
-    // this.searchWord = this.searchWord.replace('ٱ', "ا");
-    // this.searchWord = this.searchWord.replace( 'ٰ', "ا");//replace small Alef to Alef
+    this.searchWord = this.searchWord.replace(regex, '$1ي');
+    this.searchWord = this.searchWord.replace('ٱلْحَيَوٰ', "الحيا");
+    this.searchWord = this.searchWord.replace('ٱ', "ا");
+    this.searchWord = this.searchWord.replace( 'ـَٰٔ', "آ");//replace small Alef to Alef ـَٰٔ
+    this.searchWord = this.searchWord.replace( 'ٰ', "ا");//replace small Alef to Alef
     this.searchWord = this.searchWord.replace( HAMZATWASL_AMALLALEFRegex, "ا");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( 'ءا', "آ");//replace small Alef to Alef
+    this.searchWord = this.searchWord.replace( "الَّيْل", "الليل");
+    this.searchWord = this.searchWord.replace( /([\u0600-\u06FF])ىا/g, "ى");//replace small Alef to Alef
+   
+    const match = this.searchWord.match(ARABIC_CHARS_REG);
+    this.searchWord = match && match.join('').trim();
+
+    this.searchWord = this.searchWord.replace( 'ءا', "آ");//replace small Alef to Alef 
     this.searchWord = this.searchWord.replace( "ذالك", "ذلك");//replace small Alef to Alef
     this.searchWord = this.searchWord.replace( "أولائك", "أولئك");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( "ولاكن", "لكن");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( "فى", "في");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( "علىا", "على");//replace small Alef to Alef
+    this.searchWord = this.searchWord.replace( "لاكن", "لكن");//replace small Alef to Alef
+    // this.searchWord = this.searchWord.replace(TashkeelRegex, '');// remove Tashkeel
+   
 
     
     
@@ -205,9 +232,9 @@ export class RootComponent implements OnInit {
       this.alphabitcalOrder = this.searchSettings.alphabitcalOrder ? this.searchSettings.alphabitcalOrder : false;
     }
     // if (this.hasTashkeel) {
-    this.searchWithTashkeel();
+    // this.searchWithTashkeel();
     // } else {
-    //   this.searchWithoutTashkeel();
+      this.searchWithoutTashkeel();
     // }
 
     if (this.alphabitcalOrder) this.sortAlphabetical();
@@ -285,8 +312,9 @@ export class RootComponent implements OnInit {
   }
 
   searchWithTashkeel() {
+    this._http.get<any>(searchURL).subscribe(response => {
 
-    this._search.table_othmani.forEach(aya => {
+    response.forEach(aya => {
       if (this.fromSora && this.toSora) {
         this.searchFromSoraToSora(aya);
       } else if (this.fromPart && this.toPart) {
@@ -314,13 +342,16 @@ export class RootComponent implements OnInit {
 
       }
     });
+  });
 
     this.checkSameWordWithTaskeel();
   }
 
   searchWithoutTashkeel() {
 
-    this._search.table_othmani.forEach(aya => {
+    this._http.get<any>(searchURL).subscribe(response => {
+
+      response.forEach(aya => {
       if (this.fromSora && this.toSora) {
         if (aya.nOFSura >= this.fromSora && aya.nOFSura <= this.toSora) {
 
@@ -353,6 +384,7 @@ export class RootComponent implements OnInit {
 
       }
     });
+  });  
     this.checkSameWordWithOutTaskeel();
   }
 

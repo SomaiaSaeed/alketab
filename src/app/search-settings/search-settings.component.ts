@@ -22,7 +22,7 @@ export class SearchSettingsComponent implements OnInit {
   toSoraAyat: any[] = [];
   pages: any[] = [];
   result: {} = {};
-  omomQuraan: boolean = true;
+  omomQuraan: boolean = false;
   soraSelected: boolean = false;
   partSelected: boolean = false;
   parts: any[] = [];
@@ -41,7 +41,8 @@ export class SearchSettingsComponent implements OnInit {
   _search: Search = new Search();
   texts: string[];
   results: string[];
-  alphabitcalOrder: boolean = false;
+  alphabitcalOrder: boolean = true;
+  searchData: any;
 
   constructor(private router: Router) {
   }
@@ -399,6 +400,7 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   saveSearch() {
+    debugger;
     this.result= {
         'fromSora': this.fromSora, 'toSora': this.toSora,
         'fromPart': this.fromPart, 'toPart': this.toPart,
@@ -438,10 +440,13 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   onChange($event: any) {
+debugger;
     this.texts.push($event);
   }
   onRemoveItem($event: any) {
-      this.texts = this.texts.filter(item => item !== $event);
+  
+    debugger;  
+    this.texts = this.texts.filter(item => item !== $event);
 
   }
 
@@ -450,6 +455,7 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   moshafOrder($event: MouseEvent) {
+    debugger;
     this.alphabitcalOrder = false;
   }
 }
