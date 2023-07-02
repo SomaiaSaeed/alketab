@@ -35,18 +35,11 @@ export class GridComponent implements OnInit {
     } else {
       if (this.displaySearchResult) {
         this.colInfo = [];
-        if (dynamic_cols) {
-          if (dynamic_cols.length > 0) {
+        if (dynamic_cols && dynamic_cols.length > 0) {
             dynamic_cols.forEach(col => {
               this.colInfo.push({Field: col, Caption: col.toUpperCase().replace('_', ' ')});
 
             });
-          } else {
-            this.defaultCols.forEach(col => {
-              this.colInfo.push({Field: col, Caption: col.toUpperCase().replace('_', ' ')});
-
-            });
-          }
         } else {
           this.defaultCols.forEach(col => {
             this.colInfo.push({Field: col, Caption: col.toUpperCase().replace('_', ' ')});

@@ -21,27 +21,27 @@ export class SearchSettingsComponent implements OnInit {
   fromSoraAyat: any[] = [];
   toSoraAyat: any[] = [];
   pages: any[] = [];
-  result: any[] = [];
-  omomQuraan: boolean = false;
+  result: {} = {};
+  omomQuraan: boolean = true;
   soraSelected: boolean = false;
   partSelected: boolean = false;
   parts: any[] = [];
-  fromSora: any = {};
-  toSora: any = {};
-  fromPart: any = {};
-  toPart: any = {};
-  fromAya: any = {};
-  toAya: any = {};
-  fromRob: any = {};
-  toRob: any = {};
-  fromHezp: any = {};
-  toHezp: any = {};
-  fromPage: any = {};
-  toPage: any = {};
+  fromSora: any = '.';
+  toSora: any = '.';
+  fromPart: any = '.';
+  toPart: any = '.';
+  fromAya: any = '.';
+  toAya: any = '.';
+  fromRob: any = '.';
+  toRob: any = '.';
+  fromHezp: any = '.';
+  toHezp: any = '.';
+  fromPage: any = '.';
+  toPage: any = '.';
   _search: Search = new Search();
   texts: string[];
   results: string[];
-  alphabitcalOrder: boolean = true;
+  alphabitcalOrder: boolean = false;
 
   constructor(private router: Router) {
   }
@@ -177,7 +177,7 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   omomClicked($event: MouseEvent) {
-    this.omomQuraan = true;
+    this.omomQuraan = !this.omomQuraan;
   }
 
   fromSoraFun($event: any) {
@@ -399,8 +399,7 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   saveSearch() {
-    this.result.push(
-      {
+    this.result= {
         'fromSora': this.fromSora, 'toSora': this.toSora,
         'fromPart': this.fromPart, 'toPart': this.toPart,
         'fromHezp': this.fromHezp, 'toHezp': this.toHezp,
@@ -409,7 +408,7 @@ export class SearchSettingsComponent implements OnInit {
         'fromAya': this.fromAya, 'toAya': this.toAya,
         'omomQuaanBoolean': this.omomQuraan,
         'alphabitcalOrder': this.alphabitcalOrder,
-      });
+      };
 
     localStorage.setItem('result', JSON.stringify(this.result));
     localStorage.setItem('dynamic_cols', JSON.stringify(this.texts));
@@ -439,12 +438,15 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   onChange($event: any) {
-
     this.texts.push($event);
+  }
+  onRemoveItem($event: any) {
+      this.texts = this.texts.filter(item => item !== $event);
+
   }
 
   alphabitcal_Order($event: MouseEvent) {
-    this.alphabitcalOrder = true;
+    this.alphabitcalOrder = !this.alphabitcalOrder;
   }
 
   moshafOrder($event: MouseEvent) {

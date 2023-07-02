@@ -490,7 +490,7 @@ export class NavbarComponent implements OnInit {
     this.searchWord = this.searchWord.split(' ')[0];
     // });
 
-    this.searchSettings = JSON.parse(localStorage.getItem('result'))[0];
+    this.searchSettings = JSON.parse(localStorage.getItem('result'));
     let fromSora = this.searchSettings.fromSora && this.searchSettings.fromSora != '.' ? parseInt(this.searchSettings.fromSora) : null;
     let toSora = this.searchSettings.toSora && this.searchSettings.toSora != '.' ? parseInt(this.searchSettings.toSora) : null;
     let fromPart = this.searchSettings.fromPart && this.searchSettings.fromPart != '.' ? parseInt(this.searchSettings.fromPart) : null;

@@ -165,7 +165,9 @@
           </form>
           <!--            <div class="row">-->
           <!--              <div class="col-12" style="float: right; height: 50px">-->
-          <p-autoComplete (completeMethod)="search1($event)" (onSelect)="onChange($event)" [dropdown]="true"
+          <p-autoComplete (completeMethod)="search1($event)"
+          (onUnselect)="onRemoveItem($event)"
+           (onSelect)="onChange($event)" [dropdown]="true"
                           [multiple]="true" [style]="{float:'right','margin-right': '33px'}" [suggestions]="results"
                           class="select"></p-autoComplete>
 

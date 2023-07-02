@@ -188,7 +188,7 @@ export class RootComponent implements OnInit {
     
     // this.searchWord = this.searchWord.trim();
     if (localStorage.getItem('result')) {
-      this.searchSettings = JSON.parse(localStorage.getItem('result'))[0];
+      this.searchSettings = JSON.parse(localStorage.getItem('result'));
       this.fromSora = this.searchSettings.fromSora && this.searchSettings.fromSora != '.' ? parseInt(this.searchSettings.fromSora) : null;
       this.toSora = this.searchSettings.toSora && this.searchSettings.toSora != '.' ? parseInt(this.searchSettings.toSora) : null;
       this.fromPart = this.searchSettings.fromPart && this.searchSettings.fromPart != '.' ? parseInt(this.searchSettings.fromPart) : null;
