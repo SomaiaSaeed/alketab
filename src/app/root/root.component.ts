@@ -104,21 +104,25 @@ export class RootComponent implements OnInit {
       this.searchWord = event.query;
       this.results = [];
       debugger
-      var word = event.query.replace(regex, '$1ي');
-      word = word.replace('ٱ', "ا");
-      word = word.replace( 'ٰ', "ا");//replace small Alef to Alef
-      word = word.replace( HAMZATWASL_AMALLALEFRegex, "ا");//replace small Alef to Alef
-      word = word.replace( 'ءا', "آ");//replace small Alef to Alef
-      word = word.replace( "ذالك", "ذلك");//replace small Alef to Alef
-      word = word.replace( "أولائك", "أولئك");//replace small Alef to Alef
-      word = word.replace( "لاكن", "لكن");//replace small Alef to Alef
-      word = word.replace( "ٱلَّيْلِ", "الليل");
-      word = word.replace( "علىا", "على");//replace small Alef to Alef
-      const match = word.match(ARABIC_CHARS_REG);
-       word = match && match.join('').trim();
+      // var word = event.query.replace(regex, '$1ي');
+      // word = word.replace('ٱ', "ا");
+      // word = word.replace( 'ٰ', "ا");//replace small Alef to Alef
+      // word = word.replace( HAMZATWASL_AMALLALEFRegex, "ا");//replace small Alef to Alef
+      // word = word.replace( 'ءا', "آ");//replace small Alef to Alef
+      // word = word.replace( "ذالك", "ذلك");//replace small Alef to Alef
+      // word = word.replace( "أولائك", "أولئك");//replace small Alef to Alef
+      // word = word.replace( "لاكن", "لكن");//replace small Alef to Alef
+      // word = word.replace( "ٱلَّيْلِ", "الليل");
+      // word = word.replace( "علىا", "على");//replace small Alef to Alef
+      // const match = word.match(ARABIC_CHARS_REG);
+      //  word = match && match.join('').trim();
     
       // var word = this.searchWord.replace(TashkeelRegex, "");
+
       debugger
+      let word = event.query;
+      word = this.applyTaskeelRegex(word)
+
       //  let harakat = String.fromCharCode(SHADDA, 124, FATHA, 124, SHADDA_FATHA, 124,
       //   DAMMA, 124, KASRA, 124, FATHATAN, 124,
       //   SUKUN, 124, GWAZ_ALWASL_ALWAQF,
@@ -192,27 +196,10 @@ export class RootComponent implements OnInit {
     // }
     // this.searchWord =this.searchWord.split(' ')[0];
     // });
-    this.searchWord = this.searchWord.replace(regex, '$1ي');
-    this.searchWord = this.searchWord.replace('ٱلْحَيَوٰ', "الحيا");
-    this.searchWord = this.searchWord.replace('ٱ', "ا");
-    this.searchWord = this.searchWord.replace( 'ـَٰٔ', "آ");//replace small Alef to Alef ـَٰٔ
-    this.searchWord = this.searchWord.replace( 'ٰ', "ا");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( HAMZATWASL_AMALLALEFRegex, "ا");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( "الَّيْل", "الليل");
-    this.searchWord = this.searchWord.replace( /([\u0600-\u06FF])ىا/g, "ى");//replace small Alef to Alef
-   
-    const match = this.searchWord.match(ARABIC_CHARS_REG);
-    this.searchWord = match && match.join('').trim();
-
-    this.searchWord = this.searchWord.replace( 'ءا', "آ");//replace small Alef to Alef 
-    this.searchWord = this.searchWord.replace( "ذالك", "ذلك");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( "أولائك", "أولئك");//replace small Alef to Alef
-    this.searchWord = this.searchWord.replace( "لاكن", "لكن");//replace small Alef to Alef
-    // this.searchWord = this.searchWord.replace(TashkeelRegex, '');// remove Tashkeel
+    this.searchWord = this.applyTaskeelRegex(this.searchWord)
    
 
-    
-    
+  
     // this.searchWord = this.searchWord.trim();
     if (localStorage.getItem('result')) {
       this.searchSettings = JSON.parse(localStorage.getItem('result'));
@@ -267,6 +254,33 @@ export class RootComponent implements OnInit {
     // });
     // this.showListOfAyah = true;
 
+  }
+  applyTaskeelRegex(searchWord: string) {
+    searchWord = searchWord.replace(regex, '$1ي');
+    searchWord = searchWord.replace('ٱلْحَيَوٰ', "الحيا");
+    searchWord = searchWord.replace('ٱ', "ا");
+    searchWord = searchWord.replace( "ـَٔاي", "آي");//replace "بِـَٔايَٰتِنَا" "بآياتنا " 
+    searchWord = searchWord.replace( 'ـَٰٔ', "آ");//replace small Alef to Alef ـَٰٔ
+    searchWord = searchWord.replace( 'ٰ', "ا");//replace small Alef to Alef
+    searchWord = searchWord.replace( HAMZATWASL_AMALLALEFRegex, "ا");//replace small Alef to Alef
+
+    searchWord = searchWord.replace( "الَّيْل", "الليل");
+    searchWord = searchWord.replace( /([\u0600-\u06FF])ىا/g, "ى");//replace small Alef to Alef
+    searchWord = searchWord.replace( /ـُٔ/g, "ئ");//replace "لَيَـُٔوسٌ"
+    searchWord = searchWord.replace( "ـَٔا", "ئا");//replace "يَسْـَٔلُونَكَ" "يسألونك " - "سَيِّـَٔاتِهِمْ " "سيئاتهم "
+    searchWord = searchWord.replace( "ـَٔ", "أ");//replace "يَسْـَٔلُونَكَ" "يسألونك " - "يَسْـَٔمُ " "يسأم "
+
+
+   
+    const match = searchWord.match(ARABIC_CHARS_REG);
+    searchWord = match && match.join('').trim();
+
+    searchWord = searchWord.replace( 'ءا', "آ");//replace small Alef to Alef 
+    searchWord = searchWord.replace( /ذالك/g, "ذلك");//replace small Alef to Alef
+    searchWord = searchWord.replace( /أولائك/g, "أولئك");//replace small Alef to Alef
+    searchWord = searchWord.replace( /لاكن/g, "لكن");//replace small Alef to Alef
+    // searchWord = searchWord.replace(TashkeelRegex, '');// remove Tashkeel
+    return searchWord;
   }
 
   highlightSearchWord(aya: { AyaText_Othmani: string; Aya_N: string; }) {
@@ -593,6 +607,7 @@ export class RootComponent implements OnInit {
   searchInOmomAlQuranWithoutTashkeel(aya: any) {
     if (aya.AyaText.includes(this.searchWord)) {
       //
+      debugger;
       this.ayas.push({
         رقم_السورة: aya.nOFSura,
         بداية_السورة: aya.suraStart,
@@ -666,3 +681,43 @@ export class RootComponent implements OnInit {
     this.isSameWord = !this.isSameWord;
   }
 }
+
+
+
+// highlightSearchWord(aya: { AyaText_Othmani: string; Aya_N: string; }) {
+//   let splittedAya = [];
+//   let highlightedAya = [];
+//   let len: number;
+//   let splittedSearchWord = this.searchWord.split(' ');
+//   // for()
+// debugger;
+//   debugger
+//   const match = this.searchWord.match(ARABIC_CHARS_REG);
+//     let word = match && match.join('').trim();
+//     splittedAya = aya.AyaText_Othmani.split(' ');
+
+//   len = splittedAya.length;
+//   for (let i = 0; i < len; i++) {
+//     if (splittedAya[i] != '') highlightedAya.push({ text: splittedAya[i], highlight: false });
+//     if (i != len - 1) {
+//       this.numOfMoade3++;
+//       highlightedAya.push({ text: this.searchWord, highlight: true });
+//     }
+//   }
+//   // highlightedAya[highlightedAya.length-1].text += ' ('+ aya.Aya_N+')';
+
+//   // } else { //without tashkeel
+//   //   splittdAya = aya.AyaText.split(this.searchWord);
+//   //   len = splittdAya.length;
+//   //   for (let i = 0; i < len; i++) {
+//   //     if (splittdAya[i] != '') highlightedAya.push({ text: splittdAya[i], highlight: false });
+//   //     if (i != len - 1) {
+//   //       this.numOfMoade3++;
+//   //       highlightedAya.push({ text: this.searchWord, highlight: true });
+//   //     }
+//   //   }
+//   //   // highlightedAya[highlightedAya.length-1].text += ' ('+ aya.Aya_N+')';
+//   // }
+//   highlightedAya.push({ text: ' (' + aya.Aya_N + ')', highlight: false });
+//   return highlightedAya;
+// }
