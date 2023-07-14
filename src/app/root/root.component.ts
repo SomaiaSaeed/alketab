@@ -16,7 +16,8 @@ const GWAZ_ALWASL_ALWAQF = 1754;// ۚ
 const GWAZ_ALWASL = 1750;// ۖ
 const HAMZAT_WASL = 1649;//ٱ
 const TashkeelRegex = /[\u064B-\u0653]|[\u06E2]|[\u06DF-\u06ED]/g; //  /[\u064B-\u0652]/g
-const HAMZATWASL_AMALLALEFRegex = /[\u0670]|[\u0671]/g;
+const HAMZATWASL = /[\u0671]/g;
+const SMALLALEF = /[\u0670]/g;
 const searchURL = "assets/jsonData/searchJson.json";
 const ARABIC_CHARS_REG = /[\u0621-\u064A\s]+/g;
 const regex = /([\u0600-\u06FF])ِى/g; // to replace any arabic character followed by this char ِ and (ى) with (ي) 
@@ -68,6 +69,7 @@ export class RootComponent implements OnInit {
 
   ngOnInit() {
     this.callMotashabh();
+    // this.testSearchWithTaskeel();
   }
 
   callReader($event: MouseEvent) {
@@ -103,7 +105,7 @@ export class RootComponent implements OnInit {
     if (event != "oldSearch") {
       this.searchWord = event.query;
       this.results = [];
-      debugger
+      // debugger
       // var word = event.query.replace(regex, '$1ي');
       // word = word.replace('ٱ', "ا");
       // word = word.replace( 'ٰ', "ا");//replace small Alef to Alef
@@ -119,7 +121,7 @@ export class RootComponent implements OnInit {
     
       // var word = this.searchWord.replace(TashkeelRegex, "");
 
-      debugger
+      // debugger
       let word = event.query;
       word = this.applyTaskeelRegex(word)
 
@@ -147,7 +149,7 @@ export class RootComponent implements OnInit {
 
       //   });
       // } else {
-      debugger
+      // debugger
       this.hasTashkeel = false;
       this._http.get<any>(searchURL).subscribe(response => {
       response.forEach(aya => {
@@ -186,7 +188,7 @@ export class RootComponent implements OnInit {
   }
 
   doSearch() {
-    debugger;
+    // debugger;
     this.numOfMoade3 = 0;
     this.saveSearchToLocalStorage();
     this.ayas = [];
@@ -225,7 +227,7 @@ export class RootComponent implements OnInit {
     // }
 
     if (this.alphabitcalOrder) this.sortAlphabetical();
-    console.log(this.ayas);
+    // console.log(this.ayas);
 
 
     // if (hasSpace) {
@@ -256,29 +258,81 @@ export class RootComponent implements OnInit {
 
   }
   applyTaskeelRegex(searchWord: string) {
+
     searchWord = searchWord.replace(regex, '$1ي');
+    searchWord = searchWord.replace(/([ء-ي])َىْ/g, '$1ي'); // شَىْءٍ - شيء
+    searchWord = searchWord.replace(/سَوَّىٰ([ء-ي]+)/g, 'سَوَّا$1'); // فَسَوَّىٰهُنَّ فسواهن
     searchWord = searchWord.replace('ٱلْحَيَوٰ', "الحيا");
-    searchWord = searchWord.replace('ٱ', "ا");
+    // searchWord = searchWord.replace('ٱ', "ا");
     searchWord = searchWord.replace( "ـَٔاي", "آي");//replace "بِـَٔايَٰتِنَا" "بآياتنا " 
     searchWord = searchWord.replace( 'ـَٰٔ', "آ");//replace small Alef to Alef ـَٰٔ
-    searchWord = searchWord.replace( 'ٰ', "ا");//replace small Alef to Alef
-    searchWord = searchWord.replace( HAMZATWASL_AMALLALEFRegex, "ا");//replace small Alef to Alef
+    searchWord = searchWord.replace( HAMZATWASL, "ا");//replace small Alef to Alef
 
+    // let exceptionalWords = ["هَٰٓؤُلَآءِ"];
+    // if(!exceptionalWords.some(word => searchWord.includes(word))){
+    // let regexPattern = new  RegExp(`[\u0670](?!(${exceptionalWords.join('|')}))|[\u0671]$`, 'g');
+    searchWord = searchWord.replace(SMALLALEF, "ا");
+    // }
     searchWord = searchWord.replace( "الَّيْل", "الليل");
     searchWord = searchWord.replace( /([\u0600-\u06FF])ىا/g, "ى");//replace small Alef to Alef
     searchWord = searchWord.replace( /ـُٔ/g, "ئ");//replace "لَيَـُٔوسٌ"
     searchWord = searchWord.replace( "ـَٔا", "ئا");//replace "يَسْـَٔلُونَكَ" "يسألونك " - "سَيِّـَٔاتِهِمْ " "سيئاتهم "
     searchWord = searchWord.replace( "ـَٔ", "أ");//replace "يَسْـَٔلُونَكَ" "يسألونك " - "يَسْـَٔمُ " "يسأم "
+    searchWord = searchWord.replace( "عُمْىٌ", "عمي"); // عُمْىٌ
+    searchWord = searchWord.replace( "هُدَاىَ", "هداي"); // 
 
-
-   
+    
     const match = searchWord.match(ARABIC_CHARS_REG);
     searchWord = match && match.join('').trim();
-
-    searchWord = searchWord.replace( 'ءا', "آ");//replace small Alef to Alef 
+    searchWord = searchWord.replace( /وىٰ/g, "وا"); // ياأيها
+    searchWord = searchWord.replace(/ءا/g, 'آ');// آمن
+    // searchWord = searchWord.replace( 'ءا', "آ");//replace small Alef to Alef 
     searchWord = searchWord.replace( /ذالك/g, "ذلك");//replace small Alef to Alef
     searchWord = searchWord.replace( /أولائك/g, "أولئك");//replace small Alef to Alef
     searchWord = searchWord.replace( /لاكن/g, "لكن");//replace small Alef to Alef
+    searchWord = searchWord.replace( /الرحمان/g, "الرحمن");
+    searchWord = searchWord.replace( /الصلواة/g, "الصلاة");
+    searchWord = searchWord.replace( /ءأ/g, "أأ"); // أأنذرتهم
+    searchWord = searchWord.replace( /الءا/g, "الآ"); // الآخر
+    searchWord = searchWord.replace( /مستهزءون/g, "مستهزئون"); // مستهزءون
+    searchWord = searchWord.replace( /ياأيها/g, "يا أيها"); // ياأيها
+    searchWord = searchWord.replace( /هاذ/g, "هذ"); 
+    searchWord = searchWord.replace( /هاؤلاء/g, "هؤلاء"); 
+    searchWord = searchWord.replace( /يستحى/g, "يستحيي"); 
+    searchWord = searchWord.replace( /يائادم/g, "يا آدم");
+    searchWord = searchWord.replace( "يابني", "يا بني"); // 
+    searchWord = searchWord.replace( "ياقوم", "يا قوم"); // 
+    searchWord = searchWord.replace( "ياموسى", "يا موسى"); // 
+
+    // searchWord = searchWord.replace(/\b(\S*يا\S*)\b/g, "يا $1");
+
+    searchWord = searchWord.replace( "وإياى", "وإياي"); // 
+    searchWord = searchWord.replace( "إسراءيل", "إسرائيل"); // 
+    searchWord = searchWord.replace( "الزكواة", "الزكاة"); // 
+    searchWord = searchWord.replace( "ملاقوا", "ملاقو"); // 
+    searchWord = searchWord.replace( "شيـا", "شيئا"); // 
+    searchWord = searchWord.replace( "باءو", "باءوا"); // 
+    searchWord = searchWord.replace( "النبين", "النبيين"); // 
+    searchWord = searchWord.replace( "والصابـين", "والصابئين"); // 
+    searchWord = searchWord.replace( "خاسـين", "خاسئين"); // 
+    searchWord = searchWord.replace( "فاداراتم", "فادارأتم"); // 
+    searchWord = searchWord.replace( "يحى", "يحيي"); // ؟؟؟؟
+    searchWord = searchWord.replace( "خطيأته", "خطيئته"); // 
+    searchWord = searchWord.replace( "خزى", "خزي"); // 
+    searchWord = searchWord.replace( "حيواة", "حياة"); // 
+    searchWord = searchWord.replace( "ميكىل", "ميكال"); // 
+    searchWord = searchWord.replace( "تتلوا", "تتلو"); // 
+    searchWord = searchWord.replace( "يتلوا", "يتلو"); // 
+    searchWord = searchWord.replace( "اشترىه", "اشتراه"); // 
+    searchWord = searchWord.replace(  /إبراهم/g, "إبراهيم"); //
+    searchWord = searchWord.replace(/([\u0600-\u06FF]|)وإلاه(|[\u0600-\u06FF])/g, "وإله"); //     
+    searchWord = searchWord.replace(/([\u0600-\u06FF]|)إلاه(|[\u0600-\u06FF])/g, "إله"); //     
+
+    
+    
+    
+
+    
     // searchWord = searchWord.replace(TashkeelRegex, '');// remove Tashkeel
     return searchWord;
   }
@@ -291,7 +345,7 @@ export class RootComponent implements OnInit {
     // for()
 
     splittedAya = aya.AyaText_Othmani.split(this.searchWord);
-    debugger
+    // debugger
     len = splittedAya.length;
     for (let i = 0; i < len; i++) {
       if (splittedAya[i] != '') highlightedAya.push({ text: splittedAya[i], highlight: false });
@@ -398,8 +452,8 @@ export class RootComponent implements OnInit {
 
       }
     });
-  });  
     this.checkSameWordWithOutTaskeel();
+  });  
   }
 
   checkSameWordWithTaskeel() {
@@ -438,7 +492,7 @@ export class RootComponent implements OnInit {
   }
 
   checkSameWordWithOutTaskeel() {
-    debugger;
+    // debugger;
     if (this.isSameWord == true) {
       let ayat = [];
       let last_word;
@@ -607,7 +661,7 @@ export class RootComponent implements OnInit {
   searchInOmomAlQuranWithoutTashkeel(aya: any) {
     if (aya.AyaText.includes(this.searchWord)) {
       //
-      debugger;
+      // debugger;
       this.ayas.push({
         رقم_السورة: aya.nOFSura,
         بداية_السورة: aya.suraStart,
@@ -680,6 +734,97 @@ export class RootComponent implements OnInit {
   sameWord($event: MouseEvent) {
     this.isSameWord = !this.isSameWord;
   }
+
+  testSearchWithTaskeel(){
+    this._http.get<any>(searchURL).subscribe(response => {
+      // debugger;
+      for (let i = 0; i < response.length; i++ ){
+
+        this.searchWord = response[i].AyaText_Othmani;
+        // this.doSearch();
+        debugger;
+        this.numOfMoade3 = 0;
+        // this.saveSearchToLocalStorage();
+        this.ayas = [];
+        let hasSpace = false;
+        // if(this.searchWord.endsWith(' ')){
+        //   hasSpace = true;
+        // }
+        // this.searchWord =this.searchWord.split(' ')[0];
+        // });
+        this.searchWord = this.applyTaskeelRegex(this.searchWord)
+       
+    
+      
+        // this.searchWord = this.searchWord.trim();
+        if (localStorage.getItem('result')) {
+          this.searchSettings = JSON.parse(localStorage.getItem('result'));
+          this.fromSora = this.searchSettings.fromSora && this.searchSettings.fromSora != '.' ? parseInt(this.searchSettings.fromSora) : null;
+          this.toSora = this.searchSettings.toSora && this.searchSettings.toSora != '.' ? parseInt(this.searchSettings.toSora) : null;
+          this.fromPart = this.searchSettings.fromPart && this.searchSettings.fromPart != '.' ? parseInt(this.searchSettings.fromPart) : null;
+          this.toPart = this.searchSettings.toPart && this.searchSettings.toPart != '.' ? parseInt(this.searchSettings.toPart) : null;
+          this.fromHezp = this.searchSettings.fromHezp && this.searchSettings.fromHezp != '.' ? parseInt(this.searchSettings.fromHezp) : null;
+          this.toHezp = this.searchSettings.toHezp && this.searchSettings.toHezp != '.' ? parseInt(this.searchSettings.toHezp) : null;
+          this.fromRob = this.searchSettings.fromRob && this.searchSettings.fromRob != '.' ? parseInt(this.searchSettings.fromRob) : null;
+          this.toRob = this.searchSettings.toRob && this.searchSettings.toRob != '.' ? parseInt(this.searchSettings.toRob) : null;
+          this.fromPage = this.searchSettings.fromPage && this.searchSettings.fromPage != '.' ? parseInt(this.searchSettings.fromPage) : null;
+          this.toPage = this.searchSettings.toPage && this.searchSettings.toPage != '.' ? parseInt(this.searchSettings.toPage) : null;
+          this.fromAya = this.searchSettings.fromAya;
+          this.toAya = this.searchSettings.toAya;
+          this.omomQuaanBoolean = this.searchSettings.omomQuaanBoolean ? this.searchSettings.omomQuaanBoolean : false;
+          this.alphabitcalOrder = this.searchSettings.alphabitcalOrder ? this.searchSettings.alphabitcalOrder : false;
+        }
+      
+
+        
+    // this._http.get<any>(searchURL).subscribe(response => {
+
+        for (let x = 0; x < response.length; x++ ){
+
+      if (this.fromSora && this.toSora) {
+        if (response[x].nOFSura >= this.fromSora && response[x].nOFSura <= this.toSora) {
+
+          this.completeSearchWithoutTashkeel(response[x])
+        }
+      } else if (this.fromPart && this.toPart) {
+        if (response[x].nOFJoz >= this.fromPart && response[x].nOFJoz <= this.toPart) {
+          this.completeSearchWithoutTashkeel(response[x])
+
+        }
+      } else if (this.fromHezp && this.toHezp) {
+        if (response[x].nOFHezb >= this.fromHezp && response[x].nOFHezb <= this.toHezp) {
+
+          this.completeSearchWithoutTashkeel(response[x])
+
+        }
+      } else if (this.fromRob && this.toRob) {
+        if (response[x].id >= this.fromRob && response[x].id <= this.toRob) {
+
+          this.completeSearchWithoutTashkeel(response[x])
+
+        }
+      } else if (this.fromPage && this.toPage) {
+        if (response[x].nOFPage >= this.fromPage && response[x].nOFPage <= this.toPage) {
+          this.completeSearchWithoutTashkeel(response[x])
+
+        }
+      } else {
+        this.completeSearchWithoutTashkeel(response[x])
+
+      }
+    }
+    this.checkSameWordWithOutTaskeel();
+    if(this.ayas.length==0) {
+      console.log(this.searchWord); 
+      return;
+    }
+
+  
+       
+
+      };
+    });
+  }
 }
 
 
@@ -690,8 +835,8 @@ export class RootComponent implements OnInit {
 //   let len: number;
 //   let splittedSearchWord = this.searchWord.split(' ');
 //   // for()
-// debugger;
-//   debugger
+// // debugger;
+//   // debugger
 //   const match = this.searchWord.match(ARABIC_CHARS_REG);
 //     let word = match && match.join('').trim();
 //     splittedAya = aya.AyaText_Othmani.split(' ');
