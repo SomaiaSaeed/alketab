@@ -198,7 +198,7 @@ export class RootComponent implements OnInit {
     // }
     // this.searchWord =this.searchWord.split(' ')[0];
     // });
-    this.searchWord = this.applyTaskeelRegex(this.searchWord)
+    let searchWord = this.applyTaskeelRegex(this.searchWord)
    
 
   
@@ -223,12 +223,11 @@ export class RootComponent implements OnInit {
     // if (this.hasTashkeel) {
     // this.searchWithTashkeel();
     // } else {
-      this.searchWithoutTashkeel();
+      this.searchWithoutTashkeel(searchWord);
     // }
 
     if (this.alphabitcalOrder) this.sortAlphabetical();
     // console.log(this.ayas);
-
 
     // if (hasSpace) {
     //   let ayas = [];
@@ -327,6 +326,7 @@ export class RootComponent implements OnInit {
     searchWord = searchWord.replace(  /إبراهم/g, "إبراهيم"); //
     searchWord = searchWord.replace(/([\u0600-\u06FF]|)وإلاه(|[\u0600-\u06FF])/g, "وإله"); //     
     searchWord = searchWord.replace(/([\u0600-\u06FF]|)إلاه(|[\u0600-\u06FF])/g, "إله"); //     
+    searchWord = searchWord.replace(/([\u0600-\u06FF]&&)ى(&&[\u0600-\u06FF])/g, ""); //     
 
     
     
@@ -337,23 +337,38 @@ export class RootComponent implements OnInit {
     return searchWord;
   }
 
-  highlightSearchWord(aya: { AyaText_Othmani: string; Aya_N: string; }) {
+  highlightSearchWord(aya: { AyaText_Othmani: string;AyaText :string; Aya_N: string; },searchWord) {
+   debugger
     let splittedAya = [];
     let highlightedAya = [];
     let len: number;
-    let ayaTextArr = aya.AyaText_Othmani.split(' ');
-    // for()
+    let start: number = -1;
+    let end: number = -1;
 
-    splittedAya = aya.AyaText_Othmani.split(this.searchWord);
-    // debugger
-    len = splittedAya.length;
-    for (let i = 0; i < len; i++) {
-      if (splittedAya[i] != '') highlightedAya.push({ text: splittedAya[i], highlight: false });
-      if (i != len - 1) {
-        this.numOfMoade3++;
-        highlightedAya.push({ text: this.searchWord, highlight: true });
+    let ayaTextArr = aya.AyaText.split(' ');
+    for(let a=0; a<ayaTextArr.length; a++) {
+      if(searchWord.includes(ayaTextArr[a])) {
+        if(searchWord.split(' ').length == 1) {start=end=a; break;}
+        if(start == -1 && a+1<ayaTextArr.length && searchWord.includes(ayaTextArr[a+1])) start = a;
+        if(a>=ayaTextArr.length||(a+1<ayaTextArr.length && searchWord.includes(ayaTextArr[a-1]) && !searchWord.includes(ayaTextArr[a+1]))) end = a;
       }
     }
+
+    splittedAya = aya.AyaText_Othmani.split(' ');
+    for(let b=0; b<ayaTextArr.length; b++) {
+     highlightedAya.push({ text: splittedAya[b], highlight: start <= b&&end >= b });
+
+
+    }
+    // debugger
+    // len = splittedAya.length;
+    // for (let i = 0; i < len; i++) {
+    //   if (splittedAya[i] != '') highlightedAya.push({ text: splittedAya[i], highlight: false });
+    //   if (i != len - 1) {
+    //     this.numOfMoade3++;
+    //     highlightedAya.push({ text: this.searchWord, highlight: true });
+    //   }
+    // }
     // highlightedAya[highlightedAya.length-1].text += ' ('+ aya.Aya_N+')';
 
     // } else { //without tashkeel
@@ -368,7 +383,7 @@ export class RootComponent implements OnInit {
     //   }
     //   // highlightedAya[highlightedAya.length-1].text += ' ('+ aya.Aya_N+')';
     // }
-    highlightedAya.push({ text: ' (' + aya.Aya_N + ')', highlight: false });
+    // highlightedAya.push({ text: ' (' + aya.Aya_N + ')', highlight: false });
     return highlightedAya;
   }
 
@@ -412,10 +427,10 @@ export class RootComponent implements OnInit {
     });
   });
 
-    this.checkSameWordWithTaskeel();
+    // this.checkSameWordWithTaskeel();
   }
 
-  searchWithoutTashkeel() {
+  searchWithoutTashkeel(searchWord:string) {
 
     this._http.get<any>(searchURL).subscribe(response => {
 
@@ -423,48 +438,48 @@ export class RootComponent implements OnInit {
       if (this.fromSora && this.toSora) {
         if (aya.nOFSura >= this.fromSora && aya.nOFSura <= this.toSora) {
 
-          this.completeSearchWithoutTashkeel(aya)
+          this.completeSearchWithoutTashkeel(aya,searchWord)
         }
       } else if (this.fromPart && this.toPart) {
         if (aya.nOFJoz >= this.fromPart && aya.nOFJoz <= this.toPart) {
-          this.completeSearchWithoutTashkeel(aya)
+          this.completeSearchWithoutTashkeel(aya,searchWord)
 
         }
       } else if (this.fromHezp && this.toHezp) {
         if (aya.nOFHezb >= this.fromHezp && aya.nOFHezb <= this.toHezp) {
 
-          this.completeSearchWithoutTashkeel(aya)
+          this.completeSearchWithoutTashkeel(aya,searchWord)
 
         }
       } else if (this.fromRob && this.toRob) {
         if (aya.id >= this.fromRob && aya.id <= this.toRob) {
 
-          this.completeSearchWithoutTashkeel(aya)
+          this.completeSearchWithoutTashkeel(aya,this.searchWord)
 
         }
       } else if (this.fromPage && this.toPage) {
         if (aya.nOFPage >= this.fromPage && aya.nOFPage <= this.toPage) {
-          this.completeSearchWithoutTashkeel(aya)
+          this.completeSearchWithoutTashkeel(aya,searchWord)
 
         }
       } else {
-        this.completeSearchWithoutTashkeel(aya)
+        this.completeSearchWithoutTashkeel(aya,searchWord)
 
       }
     });
-    this.checkSameWordWithOutTaskeel();
+    this.checkSameWordWithOutTaskeel(searchWord);
   });  
   }
 
-  checkSameWordWithTaskeel() {
-    if (this.isSameWord == true && !this.searchWord.includes(' ')) {
+  checkSameWordWithTaskeel(searchWord) {
+    if (this.isSameWord == true && !searchWord.includes(' ')) {
       let ayat = [];
       this.numOfMoade3 = 0;
       this.ayas.forEach(aya => {
 
         let words = aya.AyaText_Othmani.split(' ');
         words.forEach(word => {
-          if (word == this.searchWord) {
+          if (word == searchWord) {
             ayat.push({
               رقم_السورة: aya.nOFSura,
               بداية_السورة: aya.بداية_السورة,
@@ -481,7 +496,7 @@ export class RootComponent implements OnInit {
               AyaText: aya.AyaText,
               AyaText_Othmani: aya.AyaText_Othmani,
               Aya_N: aya.Aya_N,
-              highlightedAya: this.highlightSearchWord(aya)
+              highlightedAya: this.highlightSearchWord(aya,searchWord)
             });
           }
         });
@@ -491,15 +506,15 @@ export class RootComponent implements OnInit {
 
   }
 
-  checkSameWordWithOutTaskeel() {
+  checkSameWordWithOutTaskeel(searchWord) {
     // debugger;
     if (this.isSameWord == true) {
       let ayat = [];
       let last_word;
-      if (!this.searchWord.includes(' ')) {// just one word
-        last_word = this.searchWord;
+      if (!searchWord.includes(' ')) {// just one word
+        last_word = searchWord;
       } else {// multi words
-        let words = this.searchWord.split(' ');
+        let words = searchWord.split(' ');
         last_word = words[words.length - 1]
       }
       this.numOfMoade3 = 0;
@@ -524,7 +539,7 @@ export class RootComponent implements OnInit {
               AyaText: aya.AyaText,
               AyaText_Othmani: aya.AyaText_Othmani,
               Aya_N: aya.Aya_N,
-              highlightedAya: this.highlightSearchWord(aya)
+              highlightedAya: this.highlightSearchWord(aya,searchWord)
             });
           }
         });
@@ -541,9 +556,9 @@ export class RootComponent implements OnInit {
     });
   }
 
-  searchInOmomAlQuran(aya) {
+  searchInOmomAlQuran(aya,searchWord) {
 
-    if (aya.AyaText.includes(this.searchWord)) {
+    if (aya.AyaText.includes(searchWord)) {
       this.ayas.push({
         رقم_السورة: aya.nOFSura,
         بداية_السورة: aya.suraStart,
@@ -560,15 +575,15 @@ export class RootComponent implements OnInit {
         AyaText: aya.AyaText,
         AyaText_Othmani: aya.AyaText_Othmani,
         Aya_N: aya.Aya_N,
-        highlightedAya: this.highlightSearchWord(aya)
+        highlightedAya: this.highlightSearchWord(aya,searchWord)
       });
     }
 
   }
 
-  searchInAyaStart(aya: any) {
+  searchInAyaStart(aya: any,searchWord) {
 
-    if (aya.AyaText.startsWith(this.searchWord)) {
+    if (aya.AyaText.startsWith(searchWord)) {
       this.ayas.push({
         رقم_السورة: aya.nOFSura,
         بداية_السورة: aya.suraStart,
@@ -585,7 +600,7 @@ export class RootComponent implements OnInit {
         AyaText: aya.AyaText,
         AyaText_Othmani: aya.AyaText_Othmani,
         Aya_N: aya.Aya_N,
-        highlightedAya: this.highlightSearchWord(aya)
+        highlightedAya: this.highlightSearchWord(aya,searchWord)
       });
     }
 
@@ -643,23 +658,23 @@ export class RootComponent implements OnInit {
   }
 
   completeSearch(aya) {
+    // if (this.omomQuaanBoolean) {
+    //   this.searchInOmomAlQuran(aya,searchWord);
+    // } else {
+    //   this.searchInAyaStart(aya,searchWord);
+    // }
+  }
+
+  completeSearchWithoutTashkeel(aya,searchWord) {
     if (this.omomQuaanBoolean) {
-      this.searchInOmomAlQuran(aya);
+      this.searchInOmomAlQuranWithoutTashkeel(aya,searchWord);
     } else {
-      this.searchInAyaStart(aya);
+      this.searchInAyaStartWithoutTashkeel(aya,searchWord);
     }
   }
 
-  completeSearchWithoutTashkeel(aya) {
-    if (this.omomQuaanBoolean) {
-      this.searchInOmomAlQuranWithoutTashkeel(aya);
-    } else {
-      this.searchInAyaStartWithoutTashkeel(aya);
-    }
-  }
-
-  searchInOmomAlQuranWithoutTashkeel(aya: any) {
-    if (aya.AyaText.includes(this.searchWord)) {
+  searchInOmomAlQuranWithoutTashkeel(aya: any,searchWord) {
+    if (aya.AyaText.includes(searchWord)) {
       //
       // debugger;
       this.ayas.push({
@@ -678,13 +693,13 @@ export class RootComponent implements OnInit {
         AyaText: aya.AyaText,
         AyaText_Othmani: aya.AyaText_Othmani,
         Aya_N: aya.Aya_N,
-        highlightedAya: this.highlightSearchWord(aya)
+        highlightedAya: this.highlightSearchWord(aya,searchWord)
       });
     }
   }
 
-  searchInAyaStartWithoutTashkeel(aya: any) {
-    if (aya.AyaText.startsWith(this.searchWord)) {
+  searchInAyaStartWithoutTashkeel(aya: any,searchWord) {
+    if (aya.AyaText.startsWith(searchWord)) {
       this.ayas.push({
         رقم_السورة: aya.nOFSura,
         بداية_السورة: aya.suraStart,
@@ -701,7 +716,7 @@ export class RootComponent implements OnInit {
         AyaText: aya.AyaText,
         AyaText_Othmani: aya.AyaText_Othmani,
         Aya_N: aya.Aya_N,
-        highlightedAya: this.highlightSearchWord(aya)
+        highlightedAya: this.highlightSearchWord(aya,searchWord)
       });
     }
   }
@@ -742,7 +757,7 @@ export class RootComponent implements OnInit {
 
         this.searchWord = response[i].AyaText_Othmani;
         // this.doSearch();
-        debugger;
+        // debugger;
         this.numOfMoade3 = 0;
         // this.saveSearchToLocalStorage();
         this.ayas = [];
@@ -784,42 +799,40 @@ export class RootComponent implements OnInit {
       if (this.fromSora && this.toSora) {
         if (response[x].nOFSura >= this.fromSora && response[x].nOFSura <= this.toSora) {
 
-          this.completeSearchWithoutTashkeel(response[x])
+          this.completeSearchWithoutTashkeel(response[x],this.searchWord)
         }
       } else if (this.fromPart && this.toPart) {
         if (response[x].nOFJoz >= this.fromPart && response[x].nOFJoz <= this.toPart) {
-          this.completeSearchWithoutTashkeel(response[x])
+          this.completeSearchWithoutTashkeel(response[x],this.searchWord)
 
         }
       } else if (this.fromHezp && this.toHezp) {
         if (response[x].nOFHezb >= this.fromHezp && response[x].nOFHezb <= this.toHezp) {
 
-          this.completeSearchWithoutTashkeel(response[x])
+          this.completeSearchWithoutTashkeel(response[x],this.searchWord)
 
         }
       } else if (this.fromRob && this.toRob) {
         if (response[x].id >= this.fromRob && response[x].id <= this.toRob) {
 
-          this.completeSearchWithoutTashkeel(response[x])
+          this.completeSearchWithoutTashkeel(response[x],this.searchWord)
 
         }
       } else if (this.fromPage && this.toPage) {
         if (response[x].nOFPage >= this.fromPage && response[x].nOFPage <= this.toPage) {
-          this.completeSearchWithoutTashkeel(response[x])
+          this.completeSearchWithoutTashkeel(response[x],this.searchWord)
 
         }
       } else {
-        this.completeSearchWithoutTashkeel(response[x])
+        this.completeSearchWithoutTashkeel(response[x],this.searchWord)
 
       }
     }
-    this.checkSameWordWithOutTaskeel();
+    this.checkSameWordWithOutTaskeel(this.searchWord);
     if(this.ayas.length==0) {
       console.log(this.searchWord); 
       return;
     }
-
-  
        
 
       };
