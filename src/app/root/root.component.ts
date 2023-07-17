@@ -350,7 +350,7 @@ export class RootComponent implements OnInit {
       if(searchWord.includes(ayaTextArr[a])) {
         if(searchWord.split(' ').length == 1) {start=end=a; break;}
         if(start == -1 && a+1<ayaTextArr.length && searchWord.includes(ayaTextArr[a+1])) start = a;
-        if(a>=ayaTextArr.length||(a+1<ayaTextArr.length && searchWord.includes(ayaTextArr[a-1]) && !searchWord.includes(ayaTextArr[a+1]))) end = a;
+        if(a>ayaTextArr.length||(a+1<=ayaTextArr.length && searchWord.includes(ayaTextArr[a-1]) && !searchWord.includes(ayaTextArr[a+1]))) end = a;
       }
     }
 
