@@ -102,6 +102,7 @@ export class RootComponent implements OnInit {
   }
 
   search(event) {
+    debugger;
     if (event != "oldSearch") {
       this.searchWord = event.query;
       this.results = [];
@@ -151,12 +152,15 @@ export class RootComponent implements OnInit {
       // } else {
       // debugger
       this.hasTashkeel = false;
+      this.results.push("")
+
       this._http.get<any>(searchURL).subscribe(response => {
       response.forEach(aya => {
         // let text = aya.AyaText_Othmani.replace(new RegExp(String.fromCharCode(1617, 124, 1614, 124, 1611, 124, 1615, 124, 1612, 124, 1616, 124, 1613, 124, 1618,3161,1552), "g"), "");
-
         // if (this.searchIn.id == 1) {
         if (aya.AyaText.includes(word)) {
+          debugger;
+
           this.results.push(aya.AyaText_Othmani)
         }
         // } else {
@@ -166,6 +170,8 @@ export class RootComponent implements OnInit {
         // }
 
       });
+      this.autoComplete.completeMethod.emit('oldSearch');
+
     });
     }
     // }

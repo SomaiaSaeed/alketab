@@ -116,7 +116,7 @@ export class NavbarComponent implements OnInit {
   searchInput: string;
 
   //4,5,6,7,8,9,10,11,77,78,79,80,81,82,83,84,85
-  imges: any[] = [76];
+  imges: any[] = [1];
   tempimges: any[] = [77];
   selectedPage: number;
 
