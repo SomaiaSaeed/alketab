@@ -1,190 +1,439 @@
-<div id="content" style="margin-bottom: 50px">
-  <section class="library">
-    <div class="container">
-      <div class="section-title">
-        <h3>البحث</h3>
-        <p>اليك ايها الزائر بعض ادوات البحث لتساعدك علي بحثك للقرآن الكريم</p>
-      </div>
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enhanced HTML Design</title>
+  <style>
+    /* Basic responsive styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
 
-          <form accept-charset="utf-8" action="" data-grid="main" data-search method="post" role="search">
-            <div class="row">
-              <div class="col-md-5 col-sm-5 col-xs-12">
-<!--                <div class="form-group">-->
-<!--                  <input class="form-control" name="filter" placeholder="بحث" type="text">-->
+    .content-section {
+      padding: 20px;
+    }
 
-<!--                </div>-->
+    .section-title h3 {
+      color: #333;
+      font-size: 24px;
+    }
+
+    .section-title p {
+      color: #777;
+      font-size: 16px;
+    }
+
+    .search-form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-options label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .input-field {
+      margin-bottom: 10px;
+    }
+
+    .check-label {
+      margin-right: 10px;
+      font-weight: normal;
+    }
+
+    .btn-save {
+      background-color: #007bff;
+      color: #fff;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    /* Media queries for responsiveness */
+    @media screen and (max-width: 768px) {
+      .col-md-8 {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content-section">
+    <section class="library">
+      <div class="container">
+        <div class="section-title">
+          <h3>البحث</h3>
+          <p>
+            اليك ايها الزائر بعض ادوات البحث لتساعدك على البحث في القرآن الكريم
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+            <form
+              accept-charset="utf-8"
+              action=""
+              data-grid="main"
+              data-search
+              method="post"
+              role="search"
+              class="search-form"
+            >
+              <!-- Search input -->
+              <p-autoComplete
+                #autoComplete
+                styleClass="prime-autoComplete-override"
+                dir="rtl"
+                [(ngModel)]="searchWord"
+                [suggestions]="results"
+                (completeMethod)="search($event)"
+                (onSelect)="selectSearchWords($event)"
+                (onFocus)="getLocal()"
+                (keyup.enter)="doSearch()"
+                [ngModelOptions]="{ standalone: true }"
+              ></p-autoComplete>
+
+              <!-- Checkbox options -->
+              <div class="search-options">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    <div class="input-field">
+                      <input
+                        (click)="omomClicked($event)"
+                        class="filled-in"
+                        id="filled-in-box1"
+                        name="remember"
+                        type="checkbox"
+                        [(checked)]="omomQuraan"
+                      />
+                      <label class="check-label" for="filled-in-box1"
+                        >عموم القرآن</label
+                      >
+                    </div>
+                    <div class="input-field">
+                      <input
+                        (click)="wasatClicked($event)"
+                        class="filled-in"
+                        id="filled-in-box2"
+                        name="remember"
+                        type="checkbox"
+                        [(checked)]="!omomQuraan"
+                      />
+                      <label class="check-label" for="filled-in-box2"
+                        >بدايه الايات</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6">
+                    <div class="input-field">
+                      <input
+                        (click)="alphabitcal_Order($event)"
+                        class="filled-in"
+                        id="filled-in-box4"
+                        name="remember"
+                        type="checkbox"
+                        [(checked)]="alphabitcalOrder"
+                      />
+                      <label class="check-label" for="filled-in-box4"
+                        >ترتيب أبجدي</label
+                      >
+                    </div>
+                    <div class="input-field">
+                      <input
+                        (click)="moshafOrder($event)"
+                        class="filled-in"
+                        id="filled-in-box5"
+                        name="remember"
+                        type="checkbox"
+                        [(checked)]="!alphabitcalOrder"
+                      />
+                      <label class="check-label" for="filled-in-box5"
+                        >ترتيب المصحف</label
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="input-field">
-                <input (click)="omomClicked($event)" class="filled-in" id="filled-in-box1" name="remember"
-                       type="checkbox" value="1">
-                <label class="check" for="filled-in-box1">عموم القران</label>
-              </div>
-              <div class="input-field">
-                <input (click)="wasatClicked($event)" class="filled-in" id="filled-in-box2" name="remember"
-                       type="checkbox" value="1">
-                <label class="check" for="filled-in-box2">بدايه الايات</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-5 col-sm-5 col-xs-12">
-              </div>
-              <div class="input-field">
-                <input (click)="alphabitcal_Order($event)" class="filled-in" id="filled-in-box4" name="remember"
-                       type="checkbox" value="1">
-                <label class="check" for="filled-in-box4">ترتيب أبجدي</label>
-              </div>
-              <div class="input-field">
-                <input (click)="moshafOrder($event)" class="filled-in" id="filled-in-box5" name="remember"
-                       type="checkbox" value="1">
-                <label class="check" for="filled-in-box5">ترتيب المصحف</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <div class="row-cols-6">
-                  <label class="check" for="filled-in-box2" style="float: right;margin-top: 5px">: الي سوره</label>
-                  <p-dropdown (onChange)="toSoraFun($event)"
-                              [options]="soras"
-                              [style]="{float:'right'}" class="sora"
-                              optionLabel="اسم_السورة">
-                  </p-dropdown>
+
+              <!-- Filter options -->
+              <div class="search-options">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    <div class="row-cols-6">
+                      <label
+                        class="check-label"
+                        for="filled-in-box2"
+                        style="float: right; margin-top: 5px"
+                        >: الي سوره</label
+                      >
+                      <p-dropdown
+                        *ngIf="soras && soras.length > 0"
+                        (onChange)="toSoraFun($event)"
+                        [(ngModel)]="selectedToSora"
+                        [options]="soras"
+                        [style]="{ float: 'right' }"
+                        class="sora"
+                        optionLabel="اسم_السورة"
+                      >
+                      </p-dropdown>
+                    </div>
+
+                    <div class="row-cols-6">
+                      <label
+                        class="check-label"
+                        for="filled-in-box2"
+                        style="
+                          float: right;
+                          margin-right: 10px;
+                          margin-top: 5px;
+                        "
+                        >: الي ايه</label
+                      >
+                      <p-dropdown
+                      [(ngModel)]="selectedToAya"
+                        (onChange)="toAyaFun($event)"
+                        [options]="toSoraAyat"
+                        [style]="{ float: 'right', 'margin-right': '5px' }"
+                        class="aya"
+                        optionLabel="id"
+                      >
+                      </p-dropdown>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6">
+                    <div class="row-cols-6">
+                      <label
+                        for="filled-in-box2"
+                        style="float: right; margin-top: 5px"
+                        >: من سوره</label
+                      >
+
+                      <p-dropdown
+                        *ngIf="soras && selectedFromSora"
+                        (onChange)="fromSoraFun($event)"
+                        [(ngModel)]="selectedFromSora"
+                        [options]="soras"
+                        [style]="{ float: 'right' }"
+                        class="sora"
+                        optionLabel="اسم_السورة"
+                      ></p-dropdown>
+                    </div>
+
+                    <div class="row-cols-6">
+                      <label
+                        class="check-label"
+                        for="filled-in-box2"
+                        style="
+                          float: right;
+                          margin-right: 10px;
+                          margin-top: 5px;
+                        "
+                        >: من ايه</label
+                      >
+                      <p-dropdown
+                      [(ngModel)]="selectedFromSora"
+                        (onChange)="fromAyaFun($event)"
+                        [options]="fromSoraAyat"
+                        [style]="{ float: 'right', 'margin-right': '5px' }"
+                        class="aya"
+                        optionLabel="id"
+                      ></p-dropdown>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="row-cols-6">
-                  <label class="check" for="filled-in-box2" style="float: right;margin-right: 10px;margin-top: 5px">: الي ايه</label>
-                  <p-dropdown (onChange)="toAyaFun($event)"
-                              [options]="toSoraAyat"
-                              [style]="{float:'right','margin-right': '5px'}" class="aya"
-                              optionLabel="id">
-                  </p-dropdown>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 15px"
+                      >: الي جزء</label
+                    >
+                    <p-dropdown
+                      (onChange)="toPartFun($event)"
+                      [options]="parts"
+                      [(ngModel)]="selectedToPart"
+                      [style]="{
+                        float: 'right',
+                        margin: '10px',
+                        width: '200px'
+                      }"
+                      optionLabel="الجزء"
+                    ></p-dropdown>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 15px"
+                      >: من جزء</label
+                    >
+                    <p-dropdown
+                    [(ngModel)]="selectedFromPart"
+                      (onChange)="fromPartFun($event)"
+                      [options]="parts"
+                      [style]="{
+                        float: 'right',
+                        margin: '10px',
+                        width: '200px'
+                      }"
+                      optionLabel="الجزء"
+                    ></p-dropdown>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 10px"
+                      >: الي حزب</label
+                    >
+                    <p-dropdown
+                    [(ngModel)]="selectedToHezp"
+                      (onChange)="toHezpFun($event)"
+                      [options]="hezb"
+                      [style]="{
+                        float: 'right',
+                        margin: '0 5px 10px 10px',
+                        width: '200px'
+                      }"
+                      optionLabel="nOFHezb"
+                    ></p-dropdown>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 10px"
+                      >: من حزب</label
+                    >
+                    <p-dropdown
+                    [(ngModel)]="selectedFromHezp"
+                      (onChange)="fromHezpFun($event)"
+                      [options]="hezb"
+                      [style]="{
+                        float: 'right',
+                        margin: '0 5px 10px 10px',
+                        width: '200px'
+                      }"
+                      optionLabel="nOFHezb"
+                    ></p-dropdown>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 10px"
+                      >: الي ربع</label
+                    >
+                    <p-dropdown
+                    [(ngModel)]="selectedToRob"
+                      (onChange)="toRobFun($event)"
+                      [options]="rob"
+                      [style]="{
+                        float: 'right',
+                        margin: '0 10px 10px 10px',
+                        width: '200px'
+                      }"
+                      optionLabel="rub"
+                    ></p-dropdown>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 10px"
+                      >: من ربع</label
+                    >
+                    <p-dropdown
+                    [(ngModel)]="selectedFromRob"
+                      (onChange)="fromRobFun($event)"
+                      [options]="rob"
+                      [style]="{
+                        float: 'right',
+                        margin: '0 10px 10px 10px',
+                        width: '200px'
+                      }"
+                      optionLabel="rub"
+                    ></p-dropdown>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 10px"
+                      >: الي صفحه</label
+                    >
+                    <p-dropdown
+                    [(ngModel)]="selectedToPage"
+                      (onChange)="toPageFun($event)"
+                      [options]="pages"
+                      [style]="{
+                        float: 'right',
+                        margin: '0 0 10px 10px',
+                        width: '200px'
+                      }"
+                      optionLabel="nOFPage"
+                    ></p-dropdown>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6">
+                    <label
+                      class="check-label"
+                      for="filled-in-box2"
+                      style="float: right; margin-top: 10px"
+                      >: من صفحه</label
+                    >
+                    <p-dropdown
+                    [(ngModel)]="selectedFromPage"
+                      (onChange)="fromPageFun($event)"
+                      [options]="pages"
+                      [style]="{
+                        float: 'right',
+                        margin: '0 0 10px 10px',
+                        width: '200px'
+                      }"
+                      optionLabel="nOFPage"
+                    ></p-dropdown>
+                  </div>
                 </div>
               </div>
-
-
-              <div class="col-6">
-                <div class="row-cols-6">
-                  <label for="filled-in-box2" style="float: right;margin-top: 5px">: </label>
-
-                  <p-dropdown (onChange)="fromSoraFun($event)"
-                              [options]="soras"
-                              [style]="{float:'right'}"
-                              class="sora"
-                              optionLabel="اسم_السورة"></p-dropdown>
-                </div>
-
-                <div class="row-cols-6">
-                  <label class="check" for="filled-in-box2" style="float: right;margin-right: 10px;margin-top: 5px">: من ايه</label>
-
-                  <p-dropdown (onChange)="fromAyaFun($event)"
-                              [options]="fromSoraAyat"
-                              [style]="{float:'right','margin-right': '5px'}"
-                              class="aya"
-                              optionLabel="id"></p-dropdown>
-                </div>
+              <!-- Save button -->
+              <div class="text-center">
+                <button
+                  (click)="saveSearch()"
+                  class="btn btn-save"
+                  data-toggle="dropdown"
+                  type="submit"
+                >
+                  حفظ الاعدادات
+                </button>
               </div>
-
-
-            </div>
-
-            <div class="row">
-
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 15px">: الي جزء</label>
-
-                <p-dropdown (onChange)="toPartFun($event)"
-                            [options]="parts"
-                            [style]="{float:'right',margin:'10px',width:'200px'}" optionLabel="الجزء"></p-dropdown>
-              </div>
-
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 15px">: من جزء</label>
-
-                <p-dropdown (onChange)="fromPartFun($event)" [options]="parts"
-                            [style]="{float:'right',margin:'10px',width:'200px'}" optionLabel="الجزء"></p-dropdown>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">: الي حزب</label>
-                <p-dropdown (onChange)="toHezpFun($event)"
-                            [options]="hezb"
-                            [style]="{float:'right',margin:'0 5px 10px 10px',width:'200px'}"
-                            optionLabel="nOFHezb"></p-dropdown>
-              </div>
-
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">: من حزب</label>
-                <p-dropdown (onChange)="fromHezpFun($event)"
-                            [options]="hezb"
-                            [style]="{float:'right',margin:'0 5px 10px 10px',width:'200px'}"
-                            optionLabel="nOFHezb"></p-dropdown>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">: الي ربع</label>
-                <p-dropdown (onChange)="toRobFun($event)"
-                            [options]="rob"
-                            [style]="{float:'right',margin:'0 10px 10px 10px',width:'200px'}"
-                            optionLabel="rub"></p-dropdown>
-              </div>
-
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">: من ربع</label>
-                <p-dropdown (onChange)="fromRobFun($event)"
-                            [options]="rob"
-                            [style]="{float:'right',margin:'0 10px 10px 10px',width:'200px'}"
-                            optionLabel="rub"></p-dropdown>
-              </div>
-
-
-            </div>
-
-            <div class="row">
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">: الي صفحه</label>
-
-                <p-dropdown (onChange)="toPageFun($event)"
-                            [options]="pages"
-                            [style]="{float:'right',margin:'0 0 10px 10px',width:'200px'}"
-                            optionLabel="nOFPage"></p-dropdown>
-              </div>
-
-              <div class="col-6">
-                <label class="check" for="filled-in-box2" style="float: right;margin-top: 10px">: من صفحه</label>
-                <p-dropdown (onChange)="fromPageFun($event)"
-                            [options]="pages"
-                            [style]="{float:'right',margin:'0 0 10px 10px',width:'200px'}"
-                            optionLabel="nOFPage"></p-dropdown>
-              </div>
-            </div>
-
-          </form>
-          <!--            <div class="row">-->
-          <!--              <div class="col-12" style="float: right; height: 50px">-->
-          <p-autoComplete (completeMethod)="search1($event)"
-          (onUnselect)="onRemoveItem($event)"
-           (onSelect)="onChange($event)" [dropdown]="true"
-                          [multiple]="true" [style]="{float:'right','margin-right': '33px'}" [suggestions]="results"
-                          class="select"></p-autoComplete>
-
-          <!--              </div>-->
-          <!--            </div>-->
-          <div class="row" style="margin-top: 100px"><span></span></div>
-          <div class="col-md-12 col-sm-12 text-center">
-
-            <button (click)="saveSearch()" class="btn btn-default btn-block waves-effect waves-light" data-toggle="dropdown"
-                    type="submit">
-              حفظ الاعدادات
-            </button>
+            </form>
+            <!-- Additional content can be added here -->
           </div>
         </div>
       </div>
+    </section>
+  </div>
 
-    </div>
-  </section>
-</div>
-
+  <!-- </body>
+</html> -->
+</body>

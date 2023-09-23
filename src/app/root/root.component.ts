@@ -21,7 +21,7 @@ const SMALLALEF = /[\u0670]/g;
 const searchURL = "assets/jsonData/searchJson.json";
 const ARABIC_CHARS_REG = /[\u0621-\u064A\s]+/g;
 const regex = /([\u0600-\u06FF])ِى/g; // to replace any arabic character followed by this char ِ and (ى) with (ي) 
-                                    // for example replace this (فِى سَبِيلِى)  with this (في سَبِيلي)  
+//                                     // for example replace this (فِى سَبِيلِى)  with this (في سَبِيلي)  
 
 @Component({
   selector: 'app-rootpage',
