@@ -118,7 +118,7 @@ export class HolyQuranComponent implements OnInit {
     debugger;
     // this.lastTop = 10;
     this.NofMotashabeh = 7;
-    this.quranPageImage = 'assets/QuranImages_50/' + this.pageNumber + '.png';
+    this.quranPageImage = 'assets/2/' + this.pageNumber + '.png';
 
     this.generateMotashabehatOfSelectedPage(this.pageNumber);
     console.log(this.allAyas);
